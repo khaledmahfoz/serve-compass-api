@@ -16,6 +16,12 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@modules/*": ["src/modules/*"],
+      "@auth/*": ["src/modules/auth/*"],
+      "@guards/*": ["src/modules/auth/guards/*"],
+      "@strategies/*": ["src/modules/auth/strategies/*"]
+    }
   }
 }

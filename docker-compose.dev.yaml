@@ -1,0 +1,19 @@
+version: '3.8'
+networks:
+  default:
+    name: serve-compass
+services:
+  postgres:
+    image: postgres:latest
+    container_name: serve-compass-db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: serve-compass
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
