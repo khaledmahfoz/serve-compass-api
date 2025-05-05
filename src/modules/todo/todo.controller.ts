@@ -14,7 +14,7 @@ export class TodoController {
   }
 
   @Get()
-  getTodo(): Promise<Todo[]> {
+  getTodo(): Todo[] {
     return this.todoService.getTodos();
   }
 }

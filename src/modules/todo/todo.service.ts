@@ -17,7 +17,58 @@ export class TodoService {
     return this.todoRepository.save(todo);
   }
 
-  getTodos(): Promise<Todo[]> {
-    return this.todoRepository.find();
+  getTodos(): Todo[] {
+    return [
+      {
+        id: 1,
+        title: 'one',
+        content: 'todo one',
+      },
+      {
+        id: 2,
+        title: 'two',
+        content: 'todo two',
+      },
+      {
+        id: 3,
+        title: 'three',
+        content: 'todo three',
+      },
+      {
+        id: 4,
+        title: 'four',
+        content: 'todo four',
+      },
+      {
+        id: 5,
+        title: 'five',
+        content: 'todo five',
+      },
+      {
+        id: 6,
+        title: 'six',
+        content: 'todo six',
+      },
+      {
+        id: 7,
+        title: 'seven',
+        content: 'todo seven',
+      },
+      {
+        id: 8,
+        title: 'eight',
+        content: 'todo eight',
+      },
+      {
+        id: 9,
+        title: 'nine',
+        content: 'todo nine',
+      },
+      {
+        id: 10,
+        title: 'ten',
+        content: 'todo ten',
+      },
+    ];
   }
 }
