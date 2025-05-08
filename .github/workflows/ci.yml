@@ -21,8 +21,11 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Verify lockfile exists
+        run: test -f src/yarn.lock || (echo "::error::yarn.lock file not found!" && exit 1)
+
+      - name: Install dependencies (CI mode - frozen lockfile)
+        run: yarn install --frozen-lockfile
         working-directory: ./src
 
       - name: Run tests
