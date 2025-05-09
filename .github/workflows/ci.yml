@@ -30,3 +30,19 @@ jobs:
 
       - name: Build project
         run: yarn build
+
+      - name: Safe Cleanup
+        if: always()
+        run: |
+          # Clean npm and yarn caches
+          yarn cache clean || true
+          
+          # Remove node_modules (but not the workspace itself)
+          rm -rf node_modules || true
+          
+          # Clean build artifacts
+          rm -rf dist node_modules src || true
+          
+          # List remaining files (for debugging)
+          echo "Remaining files in workspace:"
+          find . -maxdepth 1 -not -path "." | sort
