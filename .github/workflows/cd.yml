@@ -29,7 +29,6 @@ jobs:
 
       - name: Copy build artifacts
         run: |
-          sudo mkdir -p /usr/src/serve-compass/app/serve-compass-api/dist
           sudo cp -R ./dist/* /usr/src/serve-compass/app/serve-compass-api/dist/
           sudo chown -R $USER:$USER /usr/src/serve-compass/app/serve-compass-api/dist
 
