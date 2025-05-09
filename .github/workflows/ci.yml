@@ -30,3 +30,9 @@ jobs:
 
       - name: Build project
         run: yarn build
+
+      - name: Cleanup workspace
+        if: always()
+        run: |
+          echo "Deleting ${{ runner.workspace }}"
+          rm -rf "${{ runner.workspace }}"
