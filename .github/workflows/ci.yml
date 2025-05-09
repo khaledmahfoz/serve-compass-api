@@ -33,25 +33,25 @@ jobs:
 
       - name: Safe Cleanup
         if: always()
-       run: |
-        # Clean npm and yarn caches
-        yarn cache clean || true
-        
-        # Create a temporary directory to store files we want to keep
-        mkdir -p /tmp/preserve_files
-        
-        # Copy files/directories we want to preserve
-        if [ -d ".github" ]; then cp -r .github /tmp/preserve_files/ || true; fi
-        
-        # Remove everything in the workspace
-        find . -mindepth 1 -delete || true
-        
-        # Restore preserved files
-        if [ -d "/tmp/preserve_files/.github" ]; then cp -r /tmp/preserve_files/.github . || true; fi
-        
-        # Clean up temporary directory
-        rm -rf /tmp/preserve_files
-        
-        # List remaining files (for verification)
-        echo "Remaining files in workspace:"
-        find . -maxdepth 1 -not -path "." | sort
+        run: |
+          # Clean npm and yarn caches
+          yarn cache clean || true
+          
+          # Create a temporary directory to store files we want to keep
+          mkdir -p /tmp/preserve_files
+          
+          # Copy files/directories we want to preserve
+          if [ -d ".github" ]; then cp -r .github /tmp/preserve_files/ || true; fi
+          
+          # Remove everything in the workspace
+          find . -mindepth 1 -delete || true
+          
+          # Restore preserved files
+          if [ -d "/tmp/preserve_files/.github" ]; then cp -r /tmp/preserve_files/.github . || true; fi
+          
+          # Clean up temporary directory
+          rm -rf /tmp/preserve_files
+          
+          # List remaining files (for verification)
+          echo "Remaining files in workspace:"
+          find . -maxdepth 1 -not -path "." | sort
