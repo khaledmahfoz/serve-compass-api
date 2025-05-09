@@ -1,0 +1,40 @@
+name: Serve Compass API - CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Verify lockfile exists
+        run: test -f yarn.lock || (echo "::error::yarn.lock file not found!" && exit 1)
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build project
+        run: yarn build
+
+      - name: Copy build artifacts
+        run: |
+          sudo mkdir -p /usr/src/serve-compass/app/serve-compass-api/dist
+          sudo cp -R ./dist/* /usr/src/serve-compass/app/serve-compass-api/dist/
+          sudo chown -R $USER:$USER /usr/src/serve-compass/app/serve-compass-api/dist
+
+      - name: Restart PM2 process
+        run: pm2 restart serve-compass-api
+
+      - name: Reload Nginx
+        run: sudo systemctl reload nginx
