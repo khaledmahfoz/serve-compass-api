@@ -40,6 +40,18 @@ jobs:
             cd /usr/src/serve-compass/app/serve-compass-api/
 
             pm2 restart serve-compass-api || pm2 start dist/main.js --name serve-compass-api
+
+      - name: Restart PM2 service
+        run: |
+            cd /usr/src/serve-compass/app/serve-compass-api/
+            
+            if pm2 list | grep -q "serve-compass-api"; then
+                echo "PM2 process found, restarting..."
+                pm2 restart serve-compass-api --update-env
+            else
+                echo "PM2 process not found, starting new instance..."
+                pm2 start dist/main.js --name serve-compass-api --update-env
+            fi      
       - name: Safe Cleanup
         if: always()
         run: |
