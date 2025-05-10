@@ -27,13 +27,26 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Copy build artifacts
+      - name: Deploy to production
         run: |
-          sudo cp -R ./dist/* /usr/src/serve-compass/app/serve-compass-api/dist/
-          sudo chown -R $USER:$USER /usr/src/serve-compass/app/serve-compass-api/dist
+          mkdir -p /usr/src/serve-compass/app/serve-compass-api/
+          
+          cp -r dist/ /usr/src/serve-compass/app/serve-compass-api/dist/
 
-      - name: Restart PM2 process
-        run: pm2 restart serve-compass-api
+          chmod -R 755 /usr/src/serve-compass/app/serve-compass-api/dist/
 
-      - name: Reload Nginx
-        run: sudo systemctl reload nginx
+      - name: Restart PM2 service
+        run: |
+            cd /usr/src/serve-compass/app/serve-compass-api/
+
+            pm2 restart serve-compass-api || pm2 start dist/main.js --name serve-compass-api
+      - name: Safe Cleanup
+        if: always()
+        run: |
+          yarn cache clean || true
+
+          mkdir -p /tmp/preserve_files          
+          if [ -d ".github" ]; then cp -r .github /tmp/preserve_files/ || true; fi
+          find . -mindepth 1 -delete || true
+          if [ -d "/tmp/preserve_files/.github" ]; then cp -r /tmp/preserve_files/.github . || true; fi
+          rm -rf /tmp/preserve_files
