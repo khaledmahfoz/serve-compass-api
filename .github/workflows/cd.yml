@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir -p /usr/src/serve-compass/app/serve-compass-api/
           
-          cp -r dist/ /usr/src/serve-compass/app/serve-compass-api/dist/
+          cp -r dist/* /usr/src/serve-compass/app/serve-compass-api/dist/
 
           chmod -R 755 /usr/src/serve-compass/app/serve-compass-api/dist/
 
