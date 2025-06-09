@@ -21,7 +21,10 @@
       "@modules/*": ["src/modules/*"],
       "@auth/*": ["src/modules/auth/*"],
       "@guards/*": ["src/modules/auth/guards/*"],
-      "@strategies/*": ["src/modules/auth/strategies/*"]
+      "@strategies/*": ["src/modules/auth/strategies/*"],
+      "@interfaces/*": ["src/types/interfaces/*"],
+      "@lib/*": ["src/lib/*"],
+      "@entities/*": ["src/entities/*"]
     }
   }
 }
