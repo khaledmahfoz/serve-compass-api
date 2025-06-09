@@ -1,17 +1,32 @@
+import swagger, { SwaggerOptions } from '@fastify/swagger';
+import { UniqueConstraintFilter } from '@lib/filters/conflict-exception';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import fastifyScalar, {
+  FastifyApiReferenceOptions,
+} from '@scalar/fastify-api-reference';
 
-import { AppModule } from './app.module';
-
+import { MainModule } from './main.module';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
+    MainModule,
     new FastifyAdapter({ logger: true }),
   );
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
+  app.useGlobalFilters(new UniqueConstraintFilter());
+
   const options = new DocumentBuilder()
     .setTitle('Serve compass')
     .setDescription('Resturant management service')
@@ -19,8 +34,18 @@ async function bootstrap(): Promise<void> {
     .addServer('/')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('docs', app, document);
+  await app.register(swagger, {
+    openapi: document,
+  } as SwaggerOptions);
+  await app.register(fastifyScalar, {
+    routePrefix: '/docs',
+    configuration: {
+      theme: 'default',
+      content: document,
+    },
+  } as FastifyApiReferenceOptions);
 
   await app.listen(process.env.PORT ?? 3000);
 }
+
 bootstrap();
