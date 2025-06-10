@@ -56,6 +56,5 @@ jobs:
 
           mkdir -p /tmp/preserve_files          
           if [ -d ".github" ]; then cp -r .github /tmp/preserve_files/ || true; fi
-          find . -mindepth 1 -delete || true
           if [ -d "/tmp/preserve_files/.github" ]; then cp -r /tmp/preserve_files/.github . || true; fi
           rm -rf /tmp/preserve_files
