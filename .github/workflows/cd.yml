@@ -33,8 +33,6 @@ jobs:
           
           cp -r ./* /usr/src/serve-compass/app/serve-compass-api/
 
-          chmod -R 755 /usr/src/serve-compass/app/serve-compass-api/
-
       - name: Restart PM2 service
         run: |
             cd /usr/src/serve-compass/app/serve-compass-api/
