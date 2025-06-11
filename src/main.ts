@@ -32,6 +32,7 @@ async function bootstrap(): Promise<void> {
     .setDescription('Resturant management service')
     .setVersion('1.0')
     .addServer('/')
+    .addServer('/api')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   await app.register(swagger, {
