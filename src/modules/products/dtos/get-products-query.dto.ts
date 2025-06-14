@@ -1,10 +1,10 @@
-import { IGetCategoriesQuery } from '@interfaces/categories/get-categories-query';
+import { IGetProductsQuery } from '@interfaces/products/get-products-query';
 import { PerPageLimit } from '@lib/constants/per-page-limit';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsInt, IsPositive } from 'class-validator';
 
-export class GetCategoriesQueryDto implements IGetCategoriesQuery {
+export class GetProductsQueryDto implements IGetProductsQuery {
   @ApiPropertyOptional({
     example: 1,
     description: 'The page number for pagination (default: 1)',
@@ -16,7 +16,7 @@ export class GetCategoriesQueryDto implements IGetCategoriesQuery {
 
   @ApiPropertyOptional({
     example: 10,
-    description: 'The number of categories per page (default: 10)',
+    description: 'The number of products per page (default: 10)',
   })
   @Type(() => Number)
   @IsInt({ message: 'limit must be an integer' })

@@ -55,14 +55,12 @@ export class CategoriesController {
     const category =
       await this.categoriesService.createCategory(createCategoryDto);
     res.header('Location', `/categories/${category.id}`);
-    res.send();
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   @UpdateCategoryDocs()
   async updateCategory(
-    @Res({ passthrough: true }) res: FastifyReply,
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ): Promise<void> {
