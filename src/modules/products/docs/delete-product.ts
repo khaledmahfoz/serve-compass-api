@@ -2,16 +2,16 @@ import { ErrorDocs } from '@lib/docs/error';
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiNoContentResponse } from '@nestjs/swagger';
 
-export function DeleteCategoryDocs(): MethodDecorator {
+export function DeleteProductDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
-      description: 'Delete a category by Id.',
+      description: 'Delete a product by Id.',
     }),
     ApiParam({
       name: 'id',
       required: true,
       type: String,
-      description: 'Category Id',
+      description: 'Product Id',
     }),
     ApiNoContentResponse(),
     ErrorDocs(),

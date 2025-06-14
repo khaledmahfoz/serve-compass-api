@@ -3,7 +3,6 @@ import { ICategory } from '@interfaces/categories/category';
 import { ICreateCategory } from '@interfaces/categories/create-category';
 import { IGetCategoriesQuery } from '@interfaces/categories/get-categories-query';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
-import { PerPageLimit } from '@lib/constants/per-page-limit';
 import {
   constructPaginationMetaData,
   constructSkip,
@@ -23,14 +22,14 @@ export class CategoriesService {
   async getCategories(
     getCategoriesQueryDto: IGetCategoriesQuery,
   ): Promise<WithPaginationMetadata<ICategory[]>> {
-    const { page } = getCategoriesQueryDto;
+    const { page, limit } = getCategoriesQueryDto;
     const [categories, total] = await this.categoriesRepository.findAndCount({
-      skip: constructSkip(page),
-      take: PerPageLimit,
+      skip: constructSkip(page, limit),
+      take: limit,
     });
     return {
       data: categories,
-      metadata: constructPaginationMetaData(page, total),
+      metadata: constructPaginationMetaData(page, limit, total),
     };
   }
 
@@ -62,5 +61,18 @@ export class CategoriesService {
 
   async deleteCategory(id: string): Promise<void> {
     await this.categoriesRepository.delete(id);
+  }
+
+  async exists(
+    id: string,
+    { noThrow = false }: { noThrow?: boolean } = {},
+  ): Promise<boolean> {
+    const category = await this.categoriesRepository.exists({
+      where: { id },
+    });
+    if (!noThrow && !category) {
+      throw new NotFoundException('Category not found');
+    }
+    return !!category;
   }
 }
