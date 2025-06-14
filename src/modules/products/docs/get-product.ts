@@ -2,21 +2,21 @@ import { ErrorDocs } from '@lib/docs/error';
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiOkResponse, ApiParam } from '@nestjs/swagger';
 
-import { CategoryDto } from '../dtos/category';
+import { ProductDto } from '../dtos/product';
 
-export function GetCategoryDocs(): MethodDecorator {
+export function GetProductDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
-      description: 'Retrieve a category by Id.',
+      description: 'Retrieve a product by Id.',
     }),
     ApiParam({
       name: 'id',
       required: true,
       type: String,
-      description: 'Category Id',
+      description: 'Product Id',
     }),
     ApiOkResponse({
-      type: CategoryDto,
+      type: ProductDto,
     }),
     ErrorDocs(),
   );
