@@ -8,6 +8,7 @@ export function GetCategoryDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Retrieve a category by Id.',
+      summary: '/categories/:id',
     }),
     ApiParam({
       name: 'id',

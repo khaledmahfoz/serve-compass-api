@@ -6,6 +6,7 @@ export function DeleteCategoryDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Delete a category by Id.',
+      summary: '/categories/:id',
     }),
     ApiParam({
       name: 'id',

@@ -8,6 +8,7 @@ export function CreateProductDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Create a new product.',
+      summary: '/products',
     }),
     ApiBody({
       type: CreateProductDto,

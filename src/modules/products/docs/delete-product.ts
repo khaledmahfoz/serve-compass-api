@@ -6,6 +6,7 @@ export function DeleteProductDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Delete a product by Id.',
+      summary: '/products/:id',
     }),
     ApiParam({
       name: 'id',
