@@ -1,3 +1,4 @@
+import { Category } from '@entities/category';
 import { IProduct } from '@interfaces/products/product';
 import {
   Column,
@@ -9,8 +10,6 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
-
-import { Category } from './category';
 
 @Entity()
 @Unique(['name'])

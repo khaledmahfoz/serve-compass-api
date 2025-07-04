@@ -9,6 +9,7 @@ export function GetCategoriesDocs(): MethodDecorator {
     ApiOperation({
       description:
         'Retrieve a list of categories based on filters provided as query parameters.',
+      summary: '/categories',
     }),
     ApiQuery({
       name: 'page',

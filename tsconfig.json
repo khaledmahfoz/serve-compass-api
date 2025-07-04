@@ -24,7 +24,8 @@
       "@strategies/*": ["src/modules/auth/strategies/*"],
       "@interfaces/*": ["src/types/interfaces/*"],
       "@lib/*": ["src/lib/*"],
-      "@entities/*": ["src/entities/*"]
+      "@entities/*": ["src/entities/*"],
+      "@enums/*": ["src/types/enums/*"]
     }
   }
 }

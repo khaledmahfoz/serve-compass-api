@@ -8,6 +8,7 @@ export function GetProductDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Retrieve a product by Id.',
+      summary: '/products/:id',
     }),
     ApiParam({
       name: 'id',

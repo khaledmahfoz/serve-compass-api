@@ -8,6 +8,7 @@ export function UpdateCategoryDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Update a category.',
+      summary: '/categories/:id',
     }),
     ApiBody({
       type: UpdateCategoryDto,

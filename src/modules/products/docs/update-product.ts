@@ -8,6 +8,7 @@ export function UpdateProductDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Update a product.',
+      summary: '/products/:id',
     }),
     ApiBody({
       type: UpdateProductDto,

@@ -14,6 +14,14 @@ services:
       POSTGRES_DB: serve-compass
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
+  redis:
+    image: redis:latest
+    container_name: serve-compass-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass password
+    
 volumes:
   postgres-data:
+  redis-data:

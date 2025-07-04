@@ -8,6 +8,7 @@ export function CreateCategoryDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Create a new category.',
+      summary: '/categories',
     }),
     ApiBody({
       type: CreateCategoryDto,

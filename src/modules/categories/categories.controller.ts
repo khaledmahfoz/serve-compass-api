@@ -1,5 +1,7 @@
+import { RolesTypeEnum } from '@enums/roles-type';
 import { ICategory } from '@interfaces/categories/category';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
+import { Roles } from '@lib/guards/roles';
 import { CategoriesService } from '@modules/categories/categories.service';
 import { CreateCategoryDto } from '@modules/categories/dtos/create-category.dto';
 import { UpdateCategoryDto } from '@modules/categories/dtos/update-category.dto';
@@ -16,8 +18,9 @@ import {
   Res,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
-import { FastifyReply } from 'fastify';
+import { Response } from 'express';
 
 import { CategoriesDocs } from './docs/categories';
 import { CreateCategoryDocs } from './docs/create-category';
@@ -46,10 +49,11 @@ export class CategoriesController {
     return this.categoriesService.getCategory(id);
   }
 
+  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
   @Post()
   @CreateCategoryDocs()
   async createCategory(
-    @Res({ passthrough: true }) res: FastifyReply,
+    @Res({ passthrough: true }) res: Response,
     @Body() createCategoryDto: CreateCategoryDto,
   ): Promise<void> {
     const category =
@@ -57,6 +61,7 @@ export class CategoriesController {
     res.header('Location', `/categories/${category.id}`);
   }
 
+  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   @UpdateCategoryDocs()
@@ -68,6 +73,7 @@ export class CategoriesController {
     await this.categoriesService.updateCategory(id, updateCategoryDto);
   }
 
+  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
   @Delete(':id')
   @DeleteCategoryDocs()
   deleteCategory(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
