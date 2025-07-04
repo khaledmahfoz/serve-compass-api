@@ -25,7 +25,7 @@ export async function setupSessions(app: INestApplication): Promise<void> {
     client: redisClient,
     prefix: 'sessions:',
     disableTouch: true,
-    ttl: parseInt(process.env.SESSION_MAX_AGE!),
+    ttl: parseInt(process.env.REDIS_TTL!),
   });
 
   app.use(
@@ -44,7 +44,7 @@ export async function setupSessions(app: INestApplication): Promise<void> {
         path: '/',
         httpOnly: true,
         secure: false,
-        maxAge: parseInt(process.env.SESSION_MAX_AGE!),
+        maxAge: parseInt(process.env.SESSION_TTL!),
       },
     }),
   );
