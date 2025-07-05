@@ -30,7 +30,7 @@ export class UsersService {
       where: { id },
       relations: { userRole: { role: true } },
     });
-    if (!user) throw new NotFoundException('User not found');
+    if (!user) throw new NotFoundException('user not found');
     return user;
   }
 
@@ -45,6 +45,10 @@ export class UsersService {
 
   async updateUser(id: string, updateUserDto: IUpdateUser): Promise<void> {
     await this.usersRepository.update(id, updateUserDto);
+  }
+
+  async verifyEmail(email: string): Promise<void> {
+    await this.usersRepository.update({ email }, { emailVerified: true });
   }
 
   async deleteUser(id: string): Promise<void> {

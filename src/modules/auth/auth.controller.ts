@@ -2,12 +2,14 @@ import { IUser } from '@interfaces/users/user';
 import { logout } from '@lib/utils/logout';
 import { GoogleGuard } from '@modules/auth/guards/google';
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Req,
   Res,
@@ -21,8 +23,10 @@ import { GetGoogleDocs } from './docs/get-google';
 import { LoginDocs } from './docs/login';
 import { LogoutDocs } from './docs/logout';
 import { RegisterDocs } from './docs/register';
+import { VerifyEmailDocs } from './docs/verify-email';
 import { LoginDto } from './dtos/login';
 import { RegisterDto } from './dtos/register';
+import { SendVerifyEmailDto } from './dtos/send-verify-email';
 import { LocalAuthGuard } from './guards/local';
 
 @ApiTags('Authentication')
@@ -45,10 +49,14 @@ export class AuthController {
   }
 
   @Post('register')
-  @HttpCode(HttpStatus.NO_CONTENT)
   @RegisterDocs()
-  async register(@Body() registerDto: RegisterDto): Promise<void> {
-    return this.authService.register(registerDto);
+  async register(
+    @Body() registerDto: RegisterDto,
+  ): Promise<{ message: string }> {
+    await this.authService.register(registerDto);
+    return {
+      message: 'user registered successfully and verification email sent',
+    };
   }
 
   @UseGuards(LocalAuthGuard)
@@ -66,5 +74,23 @@ export class AuthController {
   @LogoutDocs()
   logout(@Req() req: Request, @Res({ passthrough: true }) res: Response): void {
     logout(req, res);
+  }
+
+  @Get('verify-email/:token')
+  @VerifyEmailDocs()
+  async verifyEmail(
+    @Param('token') token: string,
+  ): Promise<{ message: string }> {
+    if (!token) throw new BadRequestException('token is required');
+    await this.authService.verifyEmailByToken(token);
+    return { message: 'email verified successfully' };
+  }
+
+  @Post('send-verify-email')
+  async sendVerifyEmail(
+    @Body() { email }: SendVerifyEmailDto,
+  ): Promise<{ message: string }> {
+    await this.authService.sendVerifyEmail(email);
+    return { message: 'verification email resent' };
   }
 }

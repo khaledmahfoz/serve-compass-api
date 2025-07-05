@@ -3,6 +3,7 @@ import { RolesInterceptor } from '@lib/interceptors/roles-serializer';
 import { setupSessions } from '@lib/utils/setup-sessions';
 import { setupSwagger } from '@lib/utils/setup-swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
@@ -35,7 +36,9 @@ async function bootstrap(): Promise<void> {
 
   await setupSwagger(app);
 
-  await app.listen(process.env.PORT ?? 3000);
+  const configService = app.get(ConfigService);
+
+  await app.listen(configService.getOrThrow<number>('PORT'));
 }
 
 bootstrap();
