@@ -1,22 +1,29 @@
-import swagger, { SwaggerOptions } from '@fastify/swagger';
 import { UniqueConstraintFilter } from '@lib/filters/conflict-exception';
+import { RolesInterceptor } from '@lib/interceptors/roles-serializer';
+import { setupSessions } from '@lib/utils/setup-sessions';
+import { setupSwagger } from '@lib/utils/setup-swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import fastifyScalar, {
-  FastifyApiReferenceOptions,
-} from '@scalar/fastify-api-reference';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as cookieParser from 'cookie-parser';
+import * as passport from 'passport';
 
 import { MainModule } from './main.module';
+
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    MainModule,
-    new FastifyAdapter({ logger: true }),
-  );
+  const app = await NestFactory.create<NestExpressApplication>(MainModule);
+
+  app.enableCors({ origin: '*', credentials: true });
+
+  app.use(cookieParser());
+
+  await setupSessions(app);
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.useGlobalInterceptors(new RolesInterceptor(app.get(Reflector)));
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -27,26 +34,11 @@ async function bootstrap(): Promise<void> {
 
   app.useGlobalFilters(new UniqueConstraintFilter());
 
-  const options = new DocumentBuilder()
-    .setTitle('Serve compass')
-    .setDescription('Resturant management service')
-    .setVersion('1.0')
-    .addServer('/')
-    .addServer('/api')
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  await app.register(swagger, {
-    openapi: document,
-  } as SwaggerOptions);
-  await app.register(fastifyScalar, {
-    routePrefix: '/docs',
-    configuration: {
-      theme: 'default',
-      content: document,
-    },
-  } as FastifyApiReferenceOptions);
+  await setupSwagger(app);
 
-  await app.listen(process.env.PORT ?? 3000);
+  const configService = app.get(ConfigService);
+
+  await app.listen(configService.getOrThrow<number>('PORT'));
 }
 
 bootstrap();

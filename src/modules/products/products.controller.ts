@@ -1,5 +1,7 @@
+import { RolesTypeEnum } from '@enums/roles-type';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
 import { IProduct } from '@interfaces/products/product';
+import { Roles } from '@lib/guards/roles';
 import {
   Controller,
   Get,
@@ -13,8 +15,9 @@ import {
   Patch,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
-import { FastifyReply } from 'fastify';
+import { Response } from 'express';
 
 import { CreateProductDocs } from './docs/create-product';
 import { DeleteProductDocs } from './docs/delete-product';
@@ -46,16 +49,18 @@ export class ProductsController {
     return this.productsService.getProduct(id);
   }
 
+  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
   @Post()
   @CreateProductDocs()
   async createProduct(
-    @Res({ passthrough: true }) res: FastifyReply,
+    @Res({ passthrough: true }) res: Response,
     @Body() createProductDto: CreateProductDto,
   ): Promise<void> {
     const product = await this.productsService.createProduct(createProductDto);
     res.header('Location', `/products/${product.id}`);
   }
 
+  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   @UpdateProductDocs()
@@ -67,6 +72,7 @@ export class ProductsController {
     await this.productsService.updateProduct(id, updateProductDto);
   }
 
+  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
   @Delete(':id')
   @DeleteProductDocs()
   deleteProduct(@Param('id', ParseUUIDPipe) id: string): Promise<void> {

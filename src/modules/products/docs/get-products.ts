@@ -9,6 +9,7 @@ export function GetProductsDocs(): MethodDecorator {
     ApiOperation({
       description:
         'Retrieve a list of products based on filters provided as query parameters.',
+      summary: '/products',
     }),
     ApiQuery({
       name: 'page',

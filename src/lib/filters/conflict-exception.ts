@@ -5,7 +5,7 @@ import {
   ArgumentsHost,
   HttpStatus,
 } from '@nestjs/common';
-import { FastifyReply } from 'fastify';
+import { Response } from 'express';
 import { QueryFailedError } from 'typeorm';
 
 interface UniqueConstraintError extends Error {
@@ -22,7 +22,7 @@ export class UniqueConstraintFilter implements ExceptionFilter {
     host: ArgumentsHost,
   ): void {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<FastifyReply>();
+    const response = ctx.getResponse<Response>();
 
     if (exception.driverError?.code === '23505') {
       const detail = exception.driverError.detail ?? '';
