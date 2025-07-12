@@ -1,4 +1,5 @@
 import { IUser } from '@interfaces/users/user';
+import { User } from '@lib/decorators/user';
 import { logout } from '@lib/utils/logout';
 import { GoogleGuard } from '@modules/auth/guards/google';
 import {
@@ -24,6 +25,7 @@ import { LoginDocs } from './docs/login';
 import { LogoutDocs } from './docs/logout';
 import { RegisterDocs } from './docs/register';
 import { VerifyEmailDocs } from './docs/verify-email';
+import { ChangeEmailDto } from './dtos/change-email';
 import { LoginDto } from './dtos/login';
 import { RegisterDto } from './dtos/register';
 import { SendVerifyEmailDto } from './dtos/send-verify-email';
@@ -92,5 +94,14 @@ export class AuthController {
   ): Promise<{ message: string }> {
     await this.authService.sendVerifyEmail(email);
     return { message: 'verification email resent' };
+  }
+
+  @Post('change-email')
+  async changeEmail(
+    @User() user: IUser,
+    @Body() changeEmailDto: ChangeEmailDto,
+  ): Promise<{ message: string }> {
+    await this.authService.changeEmail(user.id, changeEmailDto);
+    return { message: 'email changed successfully' };
   }
 }

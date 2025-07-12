@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { AuthProvidersEnum } from '@enums/auth-providers';
+import { IChangeEmail } from '@interfaces/auth/change-email';
 import { IProviderUser } from '@interfaces/auth/provider-user';
 import { IRegister } from '@interfaces/auth/register';
 import { IUser } from '@interfaces/users/user';
@@ -61,10 +62,7 @@ export class AuthService {
 
     await this.usersService.saveUser(user);
     const token = await this.generateVerificationToken(email);
-    await this.emailQueue.add('sendVerificationEmail', {
-      email,
-      token,
-    });
+    await this.emailQueue.add('sendVerificationEmail', { email, token });
   }
 
   async validateUser(email: string, password: string): Promise<IUser> {
@@ -110,9 +108,22 @@ export class AuthService {
       throw new BadRequestException('email is already verified');
     }
     const token = await this.generateVerificationToken(email);
-    await this.emailQueue.add('sendVerificationEmail', {
-      email,
-      token,
-    });
+    await this.emailQueue.add('sendVerificationEmail', { email, token });
+  }
+
+  async changeEmail(
+    userId: string,
+    changeEmailDto: IChangeEmail,
+  ): Promise<void> {
+    const currentUser = await this.usersService.getUser(userId);
+    const { email, password } = changeEmailDto;
+
+    await this.validateUser(currentUser.email, password);
+
+    const existingUser = await this.usersService.exists(email);
+    if (existingUser) throw new ConflictException('email already exists');
+
+    await this.usersService.updateUser(userId, { email });
+    await this.emailQueue.add('sendUpdateEmail', { email });
   }
 }

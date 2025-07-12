@@ -14,7 +14,7 @@ export class EmailProcessor extends WorkerHost {
 
   async process(job: Job<{ email: string; token: string }>): Promise<void> {
     switch (job.name) {
-      case 'sendVerificationEmail':
+      case 'sendVerificationEmail': {
         const { email, token } = job.data;
         await this.mailerService.sendMail({
           to: email,
@@ -27,6 +27,19 @@ export class EmailProcessor extends WorkerHost {
           },
         });
         break;
+      }
+      case 'sendUpdateEmail': {
+        const { email } = job.data;
+        await this.mailerService.sendMail({
+          to: email,
+          subject: 'Email updated',
+          template: 'email-updated',
+          context: {
+            email,
+          },
+        });
+        break;
+      }
     }
   }
 }
