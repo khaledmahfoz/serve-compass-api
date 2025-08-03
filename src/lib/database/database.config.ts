@@ -4,7 +4,8 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 export const getDatabaseConfig = (
   configService: ConfigService,
 ): TypeOrmModuleOptions => {
-  const isProduction = process.env.NODE_ENV === 'production';
+  const isProduction =
+    configService.getOrThrow<string>('NODE_ENV') === 'production';
   return {
     type: configService.getOrThrow<'postgres'>('DATABASE_TYPE'),
     host: configService.getOrThrow<string>('DATABASE_HOST'),

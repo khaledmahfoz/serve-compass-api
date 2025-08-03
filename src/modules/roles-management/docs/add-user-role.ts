@@ -2,11 +2,11 @@ import { ErrorDocs } from '@lib/docs/error';
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiNoContentResponse } from '@nestjs/swagger';
 
-export function RemoveUserRoleDocs(): MethodDecorator {
+export function AddUserRoleDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
-      description: 'Remove user role.',
-      summary: '/roles-management/users/:id',
+      description: 'Add user role.',
+      summary: '/roles-management/users',
     }),
     ApiNoContentResponse(),
     ErrorDocs(),

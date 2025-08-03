@@ -1,7 +1,8 @@
 import { RolesTypeEnum } from '@enums/roles-type';
 import { ICategory } from '@interfaces/categories/category';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
-import { Roles } from '@lib/guards/roles';
+import { Roles } from '@lib/decorators/roles';
+import { RolesGuard } from '@lib/guards/roles';
 import { CategoriesService } from '@modules/categories/categories.service';
 import { CreateCategoryDto } from '@modules/categories/dtos/create-category.dto';
 import { UpdateCategoryDto } from '@modules/categories/dtos/update-category.dto';
@@ -34,7 +35,6 @@ import { GetCategoriesQueryDto } from './dtos/get-categories-query.dto';
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
-
   @Get()
   @GetCategoriesDocs()
   getCategories(
@@ -49,7 +49,8 @@ export class CategoriesController {
     return this.categoriesService.getCategory(id);
   }
 
-  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
   @Post()
   @CreateCategoryDocs()
   async createCategory(
@@ -61,7 +62,8 @@ export class CategoriesController {
     res.header('Location', `/categories/${category.id}`);
   }
 
-  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   @UpdateCategoryDocs()
@@ -73,7 +75,8 @@ export class CategoriesController {
     await this.categoriesService.updateCategory(id, updateCategoryDto);
   }
 
-  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
   @Delete(':id')
   @DeleteCategoryDocs()
   deleteCategory(@Param('id', ParseUUIDPipe) id: string): Promise<void> {

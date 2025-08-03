@@ -10,7 +10,7 @@ export function DeleteUserDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Delete a user by Id.',
-      summary: '/users',
+      summary: '/users/:id',
     }),
     ApiBearerAuth(),
     ApiNoContentResponse(),

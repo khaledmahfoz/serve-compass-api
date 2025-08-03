@@ -1,10 +1,14 @@
 import { User } from '@entities/user';
 import { AuthProvidersEnum } from '@enums/auth-providers';
+import { RolesTypeEnum } from '@enums/roles-type';
 import { IProviderUser } from '@interfaces/auth/provider-user';
 import { IUpdateUser } from '@interfaces/users/update-user';
 import { IUser } from '@interfaces/users/user';
+import { AuthenticationMessages } from '@lib/messages/authentication';
+import { SessionsService } from '@lib/services/sessions';
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -16,6 +20,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly sessionsService: SessionsService,
   ) {}
 
   async findUserByEmail(email: string): Promise<IUser | null> {
@@ -30,7 +35,7 @@ export class UsersService {
       where: { id },
       relations: { userRole: { role: true } },
     });
-    if (!user) throw new NotFoundException('User not found');
+    if (!user) throw new NotFoundException('user not found');
     return user;
   }
 
@@ -47,15 +52,38 @@ export class UsersService {
     await this.usersRepository.update(id, updateUserDto);
   }
 
-  async deleteUser(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
+  async updateUserByEmail(
+    email: string,
+    updateUserDto: IUpdateUser,
+  ): Promise<void> {
+    await this.usersRepository.update({ email }, updateUserDto);
   }
 
-  async checkIfCandidateStaff(userId: string): Promise<IUser> {
+  async verifyEmail(email: string): Promise<void> {
+    await this.usersRepository.update({ email }, { emailVerified: true });
+  }
+
+  async deleteUser(id: string, isAdmin: boolean = false): Promise<void> {
+    const user = await this.getUser(id);
+    if (user.userRole?.role?.type === RolesTypeEnum.ADMIN) {
+      throw new ForbiddenException(
+        AuthenticationMessages.ADMIN_ROLE_CANNOT_BE_REMOVED,
+      );
+    }
+    if (user.userRole !== null && !isAdmin) {
+      throw new ForbiddenException({
+        message: 'staff accounts cannot be deleted',
+      });
+    }
+    await this.usersRepository.delete(id);
+    await this.sessionsService.deleteUserSessions(id);
+  }
+
+  async checkIfPasswordProvider(userId: string): Promise<IUser> {
     const user = await this.getUser(userId);
     if (user.provider !== AuthProvidersEnum.LOCAL || !user.emailVerified)
       throw new BadRequestException(
-        'user is signed up with a social provider or email not verified',
+        AuthenticationMessages.USER_SIGNED_UP_WITH_SOCIAL_PROVIDER_OR_EMAIL_NOT_VERIFIED,
       );
     return user;
   }

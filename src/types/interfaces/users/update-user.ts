@@ -3,4 +3,6 @@ export interface IUpdateUser {
   firstname?: string;
   lastname?: string;
   picture?: string;
+  email?: string;
+  password?: string;
 }

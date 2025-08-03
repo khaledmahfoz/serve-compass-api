@@ -1,9 +1,9 @@
 import { UniqueConstraintFilter } from '@lib/filters/conflict-exception';
-import { RolesInterceptor } from '@lib/interceptors/roles-serializer';
 import { setupSessions } from '@lib/utils/setup-sessions';
 import { setupSwagger } from '@lib/utils/setup-swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory, Reflector } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
@@ -22,8 +22,6 @@ async function bootstrap(): Promise<void> {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.useGlobalInterceptors(new RolesInterceptor(app.get(Reflector)));
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -35,7 +33,9 @@ async function bootstrap(): Promise<void> {
 
   await setupSwagger(app);
 
-  await app.listen(process.env.PORT ?? 3000);
+  const configService = app.get(ConfigService);
+
+  await app.listen(configService.getOrThrow<number>('PORT'));
 }
 
 bootstrap();

@@ -9,9 +9,7 @@ export class SessionSerializer extends PassportSerializer {
     user: IUser,
     done: (err: Error | null, user: ISerializedUser) => void,
   ): void {
-    const { id, email, emailVerified, userRole } = user;
-    const role = userRole?.role?.type ?? null;
-    done(null, { id, email, emailVerified, role });
+    done(null, { id: user.id });
   }
 
   deserializeUser(

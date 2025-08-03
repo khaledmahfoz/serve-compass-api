@@ -8,7 +8,7 @@ export function UpdateUserDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Update a user by Id.',
-      summary: '/users',
+      summary: '/users/:id',
     }),
     ApiBody({
       type: UpdateUserDto,
