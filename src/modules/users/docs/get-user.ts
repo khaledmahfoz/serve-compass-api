@@ -8,7 +8,7 @@ export function GetUserDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Retrieve a user by Id.',
-      summary: '/users',
+      summary: '/users/:id',
     }),
     ApiOkResponse({
       type: UserDto,

@@ -6,7 +6,7 @@ export function UpdateUserRoleDocs(): MethodDecorator {
   return applyDecorators(
     ApiOperation({
       description: 'Update user role.',
-      summary: '/roles-management/users/:id/role',
+      summary: '/roles-management/users/:id',
     }),
     ApiNoContentResponse(),
     ErrorDocs(),

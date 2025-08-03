@@ -1,7 +1,8 @@
 import { RolesTypeEnum } from '@enums/roles-type';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
 import { IProduct } from '@interfaces/products/product';
-import { Roles } from '@lib/guards/roles';
+import { Roles } from '@lib/decorators/roles';
+import { RolesGuard } from '@lib/guards/roles';
 import {
   Controller,
   Get,
@@ -49,7 +50,8 @@ export class ProductsController {
     return this.productsService.getProduct(id);
   }
 
-  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
   @Post()
   @CreateProductDocs()
   async createProduct(
@@ -60,7 +62,8 @@ export class ProductsController {
     res.header('Location', `/products/${product.id}`);
   }
 
-  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   @UpdateProductDocs()
@@ -72,7 +75,8 @@ export class ProductsController {
     await this.productsService.updateProduct(id, updateProductDto);
   }
 
-  @UseGuards(Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR))
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
   @Delete(':id')
   @DeleteProductDocs()
   deleteProduct(@Param('id', ParseUUIDPipe) id: string): Promise<void> {

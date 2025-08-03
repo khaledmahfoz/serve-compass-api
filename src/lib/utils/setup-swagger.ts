@@ -16,6 +16,8 @@ export async function setupSwagger(app: NestExpressApplication): Promise<void> {
 
   const document = SwaggerModule.createDocument(app, options);
 
+  SwaggerModule.setup('ref', app, document);
+
   app.use(
     '/docs',
     apiReference({

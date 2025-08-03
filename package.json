@@ -30,7 +30,7 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
-    "@scalar/nestjs-api-reference": "^0.5.5",
+    "@scalar/nestjs-api-reference": "^0.5.12",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.56.1",
     "cache-manager": "^5.4.0",

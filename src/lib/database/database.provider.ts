@@ -10,7 +10,7 @@ const databaseFactory = (
   const logger = new Logger('DatabaseFactory');
   return {
     ...getDatabaseConfig(configService),
-    poolErrorHandler: (err: any) => {
+    poolErrorHandler: (err: Error) => {
       logger.error('Database pool error:', err);
     },
   };
