@@ -1,20 +1,17 @@
-import { ISerializedUser } from '@interfaces/users/serialized-user';
 import { IUser } from '@interfaces/users/user';
-import { User } from '@lib/decorators/user';
-import { logout } from '@lib/utils/logout';
+import { AuthorizationGuard } from '@lib/guards/authorization';
 import {
   Body,
   Controller,
   Delete,
-  ForbiddenException,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  ParseUUIDPipe,
   Patch,
-  Req,
-  Res,
+  UseGuards,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
 
 import { DeleteUserDocs } from './docs/delete-user';
 import { GetUserDocs } from './docs/get-user';
@@ -28,35 +25,29 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get()
+  @Get(':id')
   @GetUserDocs()
-  async getUser(@User() user: ISerializedUser): Promise<IUser> {
-    return this.usersService.getUser(user.id);
+  @UseGuards(AuthorizationGuard)
+  async getUser(@Param('id', ParseUUIDPipe) id: string): Promise<IUser> {
+    return this.usersService.getUser(id);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Patch()
+  @Patch(':id')
   @UpdateUserDocs()
+  @UseGuards(AuthorizationGuard)
   async updateUser(
-    @User() user: ISerializedUser,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<void> {
     if (!updateUserDto) return;
-    await this.usersService.updateUser(user.id, updateUserDto);
+    await this.usersService.updateUser(id, updateUserDto);
   }
 
-  @Delete()
+  @Delete(':id')
   @DeleteUserDocs()
-  async deleteUser(
-    @User() user: ISerializedUser,
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<void> {
-    if (user.role !== null)
-      throw new ForbiddenException({
-        message: 'staff accounts cannot be deleted',
-      });
-    await this.usersService.deleteUser(user.id);
-    logout(req, res);
+  @UseGuards(AuthorizationGuard)
+  async deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
+    await this.usersService.deleteUser(id);
   }
 }

@@ -40,6 +40,31 @@ export class EmailProcessor extends WorkerHost {
         });
         break;
       }
+      case 'sendUpdatePassword': {
+        const { email, token } = job.data;
+        await this.mailerService.sendMail({
+          to: email,
+          subject: 'Reset password',
+          template: 'reset-password',
+          context: {
+            email,
+            resetPasswordLink: `${this.configService.getOrThrow<string>(
+              'CLIENT_BASE_URL',
+            )}/auth/reset-password/${token}`,
+          },
+        });
+      }
+      case 'passwordUpdated': {
+        const { email } = job.data;
+        await this.mailerService.sendMail({
+          to: email,
+          subject: 'Password updated',
+          template: 'password-updated',
+          context: {
+            email,
+          },
+        });
+      }
     }
   }
 }

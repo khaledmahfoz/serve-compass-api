@@ -20,14 +20,22 @@ import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { Request, Request as RequestType, Response } from 'express';
 
 import { AuthService } from './auth.service';
+import { ChangeEmailDocs } from './docs/change-email';
+import { ChangePasswordDocs } from './docs/change-password';
 import { GetGoogleDocs } from './docs/get-google';
 import { LoginDocs } from './docs/login';
 import { LogoutDocs } from './docs/logout';
 import { RegisterDocs } from './docs/register';
+import { ResetPasswordDocs } from './docs/reset-password';
+import { SendResetPasswordEmailDocs } from './docs/send-reset-password-email';
+import { SendVerifyEmailDocs } from './docs/send-verify-email';
 import { VerifyEmailDocs } from './docs/verify-email';
 import { ChangeEmailDto } from './dtos/change-email';
+import { ChangePasswordDto } from './dtos/change-password';
 import { LoginDto } from './dtos/login';
 import { RegisterDto } from './dtos/register';
+import { ResetPasswordDto } from './dtos/reset-password';
+import { SendUpdatePasswordDto } from './dtos/send-update-password';
 import { SendVerifyEmailDto } from './dtos/send-verify-email';
 import { LocalAuthGuard } from './guards/local';
 
@@ -78,30 +86,58 @@ export class AuthController {
     logout(req, res);
   }
 
-  @Get('verify-email/:token')
-  @VerifyEmailDocs()
-  async verifyEmail(
-    @Param('token') token: string,
-  ): Promise<{ message: string }> {
-    if (!token) throw new BadRequestException('token is required');
-    await this.authService.verifyEmailByToken(token);
-    return { message: 'email verified successfully' };
-  }
-
-  @Post('send-verify-email')
-  async sendVerifyEmail(
-    @Body() { email }: SendVerifyEmailDto,
-  ): Promise<{ message: string }> {
-    await this.authService.sendVerifyEmail(email);
-    return { message: 'verification email resent' };
-  }
-
   @Post('change-email')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ChangeEmailDocs()
   async changeEmail(
     @User() user: IUser,
     @Body() changeEmailDto: ChangeEmailDto,
-  ): Promise<{ message: string }> {
+  ): Promise<void> {
     await this.authService.changeEmail(user.id, changeEmailDto);
-    return { message: 'email changed successfully' };
+  }
+
+  @Post('change-password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ChangePasswordDocs()
+  async changePassword(
+    @User() user: IUser,
+    @Body() changePasswordDto: ChangePasswordDto,
+  ): Promise<void> {
+    await this.authService.changePassword(user.id, changePasswordDto);
+  }
+
+  @Post('send-verify-email')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @SendVerifyEmailDocs()
+  async sendVerifyEmail(@Body() { email }: SendVerifyEmailDto): Promise<void> {
+    await this.authService.sendVerifyEmail(email);
+  }
+
+  @Post('verify-email/:token')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @VerifyEmailDocs()
+  async verifyEmail(@Param('token') token: string): Promise<void> {
+    if (!token) throw new BadRequestException('token is required');
+    await this.authService.verifyEmailByToken(token);
+  }
+
+  @Post('send-reset-password-email')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @SendResetPasswordEmailDocs()
+  async sendResetPasswordEmail(
+    @Body() { email }: SendUpdatePasswordDto,
+  ): Promise<void> {
+    await this.authService.sendUpdatePasswordEmail(email);
+  }
+
+  @Post('reset-password/:token')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ResetPasswordDocs()
+  async resetPassword(
+    @Param('token') token: string,
+    @Body() { newPassword }: ResetPasswordDto,
+  ): Promise<void> {
+    if (!token) throw new BadRequestException('token is required');
+    await this.authService.updatePasswordByToken(token, newPassword);
   }
 }
