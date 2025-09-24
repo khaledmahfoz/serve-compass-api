@@ -22,6 +22,7 @@ export const MailerOptionsProvider: MailerAsyncOptions = {
       adapter: new PugAdapter(),
       options: { strict: true },
     },
+    verifyTransporters: true,
   }),
   inject: [ConfigService],
 };
