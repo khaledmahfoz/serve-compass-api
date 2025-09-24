@@ -20,6 +20,7 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
 
@@ -34,12 +35,17 @@ import { GetCategoriesQueryDto } from './dtos/get-categories-query.dto';
 @CategoriesDocs()
 @Controller('categories')
 export class CategoriesController {
+  private readonly logger = new Logger(CategoriesController.name);
   constructor(private readonly categoriesService: CategoriesService) {}
+
   @Get()
   @GetCategoriesDocs()
   getCategories(
     @Query() query: GetCategoriesQueryDto,
   ): Promise<WithPaginationMetadata<ICategory[]>> {
+    this.logger.log(
+      `Getting categories with page ${query.page} and limit ${query.limit}`,
+    );
     return this.categoriesService.getCategories(query);
   }
 

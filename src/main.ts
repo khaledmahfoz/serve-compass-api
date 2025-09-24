@@ -1,17 +1,21 @@
 import { UniqueConstraintFilter } from '@lib/filters/conflict-exception';
 import { setupSessions } from '@lib/utils/setup-sessions';
 import { setupSwagger } from '@lib/utils/setup-swagger';
+import { logger } from '@lib/utils/winston-logger';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
+import { WinstonModule } from 'nest-winston';
 import * as passport from 'passport';
 
 import { MainModule } from './main.module';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create<NestExpressApplication>(MainModule);
+  const app = await NestFactory.create<NestExpressApplication>(MainModule, {
+    logger: WinstonModule.createLogger(logger),
+  });
 
   app.enableCors({ origin: '*', credentials: true });
 
