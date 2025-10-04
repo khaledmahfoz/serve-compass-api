@@ -22,7 +22,7 @@ services:
     volumes:
       - ./logs:/app/logs
   postgres:
-    image: postgres:alpine
+    image: postgres:15-alpine
     container_name: serve-compass-db
     restart: unless-stopped
     ports:
@@ -41,7 +41,7 @@ services:
     networks:
       - serve-compass
   redis:
-    image: redis:alpine
+    image: redis:7-alpine
     container_name: serve-compass-redis
     restart: unless-stopped
     ports:
