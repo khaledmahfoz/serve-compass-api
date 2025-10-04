@@ -9,7 +9,7 @@ services:
     container_name: serve-compass-api
     restart: unless-stopped
     ports:
-      - "${PORT}:3000"
+      - "${PORT}:${PORT}"
     env_file:
       - .env
     depends_on:
@@ -24,7 +24,7 @@ services:
     container_name: serve-compass-db
     restart: unless-stopped
     ports:
-      - "${DATABASE_PORT}"
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
     environment:
       POSTGRES_USER: ${DATABASE_USER_NAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -43,7 +43,7 @@ services:
     container_name: serve-compass-redis
     restart: unless-stopped
     ports:
-      - "${REDIS_PORT}"
+      - "${REDIS_PORT}:${REDIS_PORT}"
     command: redis-server --requirepass ${REDIS_PASSWORD}
     healthcheck:
       test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
