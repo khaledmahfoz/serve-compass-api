@@ -1,15 +1,14 @@
 version: "3.8"
 networks:
   serve-compass:
+  coolify:
+    external: true
 services:
   serve-compass-api:
     build:
       context: .
-      dockerfile: Dockerfile
     container_name: serve-compass-api
     restart: unless-stopped
-    ports:
-      - "${PORT}:${PORT}"
     env_file:
       - .env
     depends_on:
@@ -19,12 +18,11 @@ services:
         condition: service_healthy
     networks:
       - serve-compass
+      - coolify
   db:
     image: postgres:15-alpine
     container_name: serve-compass-db
     restart: unless-stopped
-    ports:
-      - "${DATABASE_PORT}:5432"
     environment:
       POSTGRES_USER: ${DATABASE_USER_NAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -36,14 +34,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - serve-compass
   cache:
     image: redis:7-alpine
     container_name: serve-compass-cache
     restart: unless-stopped
-    ports:
-      - "${REDIS_PORT}:6379"
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     command: redis-server --requirepass ${REDIS_PASSWORD}
@@ -52,5 +50,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    volumes:
+      - redis_data:/data
     networks:
       - serve-compass
+volumes:
+  postgres_data:
+  redis_data:
