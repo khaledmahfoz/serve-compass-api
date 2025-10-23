@@ -45,7 +45,7 @@ export async function setupSessions(app: INestApplication): Promise<void> {
         httpOnly: true,
         secure: false,
         maxAge: parseInt(process.env.SESSION_TTL!),
-        sameSite: 'lax',
+        sameSite: 'strict',
       },
     }),
   );
