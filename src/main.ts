@@ -18,10 +18,7 @@ async function bootstrap(): Promise<void> {
   });
 
   app.enableCors({
-    origin: [
-      'http://n8044c440go0w4sow8040ows.82.29.172.106.sslip.io',
-      'http://localhost:3000',
-    ],
+    origin: ['http://localhost:3000'],
     credentials: true,
   });
 
