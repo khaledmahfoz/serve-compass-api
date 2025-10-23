@@ -17,7 +17,13 @@ async function bootstrap(): Promise<void> {
     logger: WinstonModule.createLogger(logger),
   });
 
-  app.enableCors({ origin: '*', credentials: true });
+  app.enableCors({
+    origin: [
+      'http://n8044c440go0w4sow8040ows.82.29.172.106.sslip.io',
+      'http://localhost:3000',
+    ],
+    credentials: true,
+  });
 
   app.use(cookieParser());
 
