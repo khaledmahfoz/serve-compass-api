@@ -42,10 +42,10 @@ export async function setupSessions(app: INestApplication): Promise<void> {
       rolling: true,
       cookie: {
         path: '/',
-        httpOnly: false,
-        secure: true,
+        httpOnly: true,
+        secure: false,
         maxAge: parseInt(process.env.SESSION_TTL!),
-        sameSite: 'none',
+        sameSite: 'lax',
       },
     }),
   );
