@@ -17,7 +17,14 @@ async function bootstrap(): Promise<void> {
     logger: WinstonModule.createLogger(logger),
   });
 
-  app.enableCors({ origin: '*', credentials: true });
+  const clientUrl = app
+    .get(ConfigService)
+    .getOrThrow<string>('CLIENT_BASE_URL');
+
+  app.enableCors({
+    origin: [clientUrl],
+    credentials: true,
+  });
 
   app.use(cookieParser());
 

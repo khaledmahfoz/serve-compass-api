@@ -27,5 +27,11 @@
       "@entities/*": ["src/entities/*"],
       "@enums/*": ["src/types/enums/*"]
     }
+  },
+  "watchOptions": {
+    "synchronousWatchDirectory": true,
+    "watchFile": "fixedpollinginterval",
+    "watchDirectory": "fixedpollinginterval",
+    "excludeDirectories": ["**/node_modules", "dist"]
   }
 }

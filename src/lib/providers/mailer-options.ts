@@ -18,7 +18,7 @@ export const MailerOptionsProvider: MailerAsyncOptions = {
     },
     defaults: { from: config.getOrThrow<string>('MAIL_FROM') },
     template: {
-      dir: cwd() + '/src/lib/templates',
+      dir: cwd() + '/templates',
       adapter: new PugAdapter(),
       options: { strict: true },
     },
