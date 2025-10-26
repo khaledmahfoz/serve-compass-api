@@ -7,6 +7,7 @@ services:
   serve-compass-api:
     build:
       context: .
+      dockerfile: Dockerfile
     container_name: serve-compass-api
     restart: unless-stopped
     env_file:

@@ -1,6 +1,7 @@
 import { RolesManagementService } from '@modules/roles-management/roles-management.service';
 import { CallHandler, ExecutionContext, Injectable } from '@nestjs/common';
 import {
+  ClassSerializerContextOptions,
   ClassSerializerInterceptor,
   PlainLiteralObject,
 } from '@nestjs/common/serializer';
@@ -19,13 +20,22 @@ export class RolesInterceptor extends ClassSerializerInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<object> {
     const request = context.switchToHttp().getRequest();
+    const serializeOptions = this.reflector.get('SERIALIZE_OPTIONS_METADATA', [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
     return next.handle().pipe(
       map(async (data: PlainLiteralObject | Array<PlainLiteralObject>) => {
         const role = await this.rolesManagementService.getUserRole(
           request.user?.id,
         );
         const groups = role ? [role as string] : [];
-        return this.serialize(data, { groups });
+        const options: ClassSerializerContextOptions = { groups };
+        if (serializeOptions?.type) {
+          options.type = serializeOptions.type;
+        }
+        return this.serialize(data, options);
       }),
     );
   }
