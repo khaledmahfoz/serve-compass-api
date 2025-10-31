@@ -9,6 +9,7 @@ import {
   IsString,
   IsEmail,
   IsNumber,
+  Max,
 } from 'class-validator';
 export class UpdateProductDto implements IUpdateProduct {
   @ApiProperty({
@@ -27,6 +28,7 @@ export class UpdateProductDto implements IUpdateProduct {
   @Type(() => Number)
   @IsPositive({ message: 'order must be a positive number' })
   @IsInt({ message: 'order must be an integer' })
+  @Max(1000, { message: 'order must be less than or equal to 1000' })
   order?: number;
 
   @ApiProperty({
@@ -58,6 +60,9 @@ export class UpdateProductDto implements IUpdateProduct {
     example: 100,
   })
   @IsNumber({}, { message: 'calories must be a number' })
+  @IsPositive({ message: 'calories must be a positive number' })
+  @IsInt({ message: 'calories must be an integer' })
+  @Max(10000, { message: 'calories must be less than or equal to 10000' })
   @IsOptional()
   calories?: number;
 

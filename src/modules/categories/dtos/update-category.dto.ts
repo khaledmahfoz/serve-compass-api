@@ -8,6 +8,7 @@ import {
   IsPositive,
   IsString,
   IsEmail,
+  Max,
 } from 'class-validator';
 
 export class UpdateCategoryDto implements IUpdateCategory {
@@ -27,6 +28,7 @@ export class UpdateCategoryDto implements IUpdateCategory {
   @Type(() => Number)
   @IsPositive({ message: 'order must be a positive number' })
   @IsInt({ message: 'order must be an integer' })
+  @Max(1000, { message: 'order must be less than or equal to 1000' })
   order?: number;
 
   @ApiProperty({
