@@ -1,4 +1,5 @@
 import { IUser } from '@interfaces/users/user';
+import { Serializer } from '@lib/decorators/serializer';
 import { AuthorizationGuard } from '@lib/guards/authorization';
 import {
   Body,
@@ -18,13 +19,14 @@ import { GetUserDocs } from './docs/get-user';
 import { UpdateUserDocs } from './docs/update-user';
 import { UsersDocs } from './docs/users';
 import { UpdateUserDto } from './dtos/update-user';
+import { UserDto } from './dtos/user';
 import { UsersService } from './users.service';
 
 @UsersDocs()
+@Serializer({ type: UserDto })
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
   @Get(':id')
   @GetUserDocs()
   @UseGuards(AuthorizationGuard)

@@ -4,9 +4,15 @@ import { UserRole } from '@entities/user-role';
 import { AuthProvidersEnum } from '@enums/auth-providers';
 import { RolesTypeEnum } from '@enums/roles-type';
 import { IProviderUser } from '@interfaces/auth/provider-user';
+import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
+import { IUserRole } from '@interfaces/user-roles/user-role';
 import { saltRounds } from '@lib/constants/salt-rounds';
 import { AuthenticationMessages } from '@lib/messages/authentication';
 import { TokensService } from '@lib/services/tokens';
+import {
+  constructPaginationMetaData,
+  constructSkip,
+} from '@lib/utils/construct-pagination-metadata';
 import { RolesService } from '@modules/roles/roles.service';
 import { UsersService } from '@modules/users/users.service';
 import { InjectQueue } from '@nestjs/bullmq';
@@ -19,6 +25,7 @@ import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
 
 import { AddUserRoleDto } from './dtos/add-user-role';
+import { GetUsersRolesQueryDto } from './dtos/get-users-roles-query.dto';
 
 @Injectable()
 export class RolesManagementService {
@@ -31,6 +38,26 @@ export class RolesManagementService {
     @InjectQueue('emailQueue') private readonly emailQueue: Queue,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
+
+  async getUsersRoles(
+    getUsersRolesQueryDto: GetUsersRolesQueryDto,
+  ): Promise<WithPaginationMetadata<IUserRole[]>> {
+    const { page, limit } = getUsersRolesQueryDto;
+    const [usersRoles, total] =
+      await this.rolesManagementRepository.findAndCount({
+        skip: constructSkip(page, limit),
+        take: limit,
+        relations: ['user', 'role'],
+        select: {
+          user: { id: true, email: true, fullname: true },
+          role: { id: true, type: true },
+        },
+      });
+    return {
+      data: usersRoles,
+      metadata: constructPaginationMetaData(page, limit, total),
+    };
+  }
 
   async addUserRole(addUserRoleDto: AddUserRoleDto): Promise<void> {
     const existingUser = await this.usersService.exists(addUserRoleDto.email);

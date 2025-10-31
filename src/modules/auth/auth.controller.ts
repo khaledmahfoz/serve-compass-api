@@ -1,7 +1,9 @@
 import { IUser } from '@interfaces/users/user';
+import { Serializer } from '@lib/decorators/serializer';
 import { User } from '@lib/decorators/user';
 import { logout } from '@lib/utils/logout';
 import { GoogleGuard } from '@modules/auth/guards/google';
+import { UserDto } from '@modules/users/dtos/user';
 import {
   BadRequestException,
   Body,
@@ -43,6 +45,8 @@ import { LocalAuthGuard } from './guards/local';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Serializer({ type: UserDto })
   @Get('google')
   @HttpCode(HttpStatus.TEMPORARY_REDIRECT)
   @UseGuards(GoogleGuard)
@@ -51,6 +55,7 @@ export class AuthController {
     return;
   }
 
+  @Serializer({ type: UserDto })
   @Get('google/redirect')
   @ApiExcludeEndpoint()
   @UseGuards(GoogleGuard)
@@ -69,6 +74,7 @@ export class AuthController {
     };
   }
 
+  @Serializer({ type: UserDto })
   @UseGuards(LocalAuthGuard)
   @LoginDocs()
   @Post('login')
