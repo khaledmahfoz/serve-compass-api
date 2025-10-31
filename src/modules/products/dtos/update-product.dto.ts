@@ -61,7 +61,6 @@ export class UpdateProductDto implements IUpdateProduct {
   })
   @IsNumber({}, { message: 'calories must be a number' })
   @IsPositive({ message: 'calories must be a positive number' })
-  @IsInt({ message: 'calories must be an integer' })
   @Max(10000, { message: 'calories must be less than or equal to 10000' })
   @IsOptional()
   calories?: number;
