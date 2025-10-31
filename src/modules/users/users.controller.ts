@@ -1,4 +1,5 @@
 import { IUser } from '@interfaces/users/user';
+import { Serializer } from '@lib/decorators/serializer';
 import { AuthorizationGuard } from '@lib/guards/authorization';
 import {
   Body,
@@ -10,7 +11,6 @@ import {
   Param,
   ParseUUIDPipe,
   Patch,
-  SetMetadata,
   UseGuards,
 } from '@nestjs/common';
 
@@ -23,9 +23,7 @@ import { UserDto } from './dtos/user';
 import { UsersService } from './users.service';
 
 @UsersDocs()
-@SetMetadata('SERIALIZE_OPTIONS_METADATA', {
-  type: UserDto,
-})
+@Serializer({ type: UserDto })
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

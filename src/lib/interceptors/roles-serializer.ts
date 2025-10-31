@@ -20,7 +20,7 @@ export class RolesInterceptor extends ClassSerializerInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<object> {
     const request = context.switchToHttp().getRequest();
-    const serializeOptions = this.reflector.get('SERIALIZE_OPTIONS_METADATA', [
+    const serializeOptions = this.reflector.getAllAndOverride('serializer', [
       context.getHandler(),
       context.getClass(),
     ]);
