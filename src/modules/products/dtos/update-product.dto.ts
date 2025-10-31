@@ -65,6 +65,16 @@ export class UpdateProductDto implements IUpdateProduct {
   @IsOptional()
   calories?: number;
 
+  @ApiPropertyOptional({
+    description: 'The price of the product',
+    example: 10.99,
+  })
+  @IsNumber({}, { message: 'price must be a number' })
+  @IsPositive({ message: 'price must be a positive number' })
+  @Max(100000, { message: 'price must be less than or equal to 100000' })
+  @IsOptional()
+  price?: number;
+
   @ApiProperty({
     description: 'The user who updated the product',
     example: 'moderator@restaurant.com',

@@ -47,6 +47,7 @@ export class CreateProductDto implements ICreateProduct {
   })
   @IsNumber({}, { message: 'price must be a number' })
   @IsNotEmpty({ message: 'price is required' })
+  @Max(100000, { message: 'price must be less than or equal to 100000' })
   price: number;
 
   @ApiProperty({
@@ -63,6 +64,8 @@ export class CreateProductDto implements ICreateProduct {
   })
   @IsNumber({}, { message: 'calories must be a number' })
   @IsNotEmpty({ message: 'calories field is required' })
+  @IsPositive({ message: 'calories must be a positive number' })
+  @Max(10000, { message: 'calories must be less than or equal to 10000' })
   calories: number;
 
   @ApiPropertyOptional({
