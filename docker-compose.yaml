@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     container_name: serve-compass-api
     restart: unless-stopped
+    expose:
+      - "3000"
     env_file:
       - .env
     depends_on:
