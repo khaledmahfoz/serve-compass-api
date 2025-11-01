@@ -43,7 +43,7 @@ export async function setupSessions(app: INestApplication): Promise<void> {
       cookie: {
         path: '/',
         httpOnly: true,
-        secure: false,
+        secure: true,
         maxAge: parseInt(process.env.SESSION_TTL!),
         sameSite: 'strict',
       },
