@@ -40,12 +40,13 @@ export async function setupSessions(app: INestApplication): Promise<void> {
       resave: false,
       saveUninitialized: false,
       rolling: true,
+      proxy: true,
       cookie: {
         path: '/',
         httpOnly: true,
-        secure: false,
+        secure: true,
         maxAge: parseInt(process.env.SESSION_TTL!),
-        sameSite: 'strict',
+        sameSite: 'lax',
       },
     }),
   );
