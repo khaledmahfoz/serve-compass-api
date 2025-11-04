@@ -9,4 +9,5 @@ export enum AuthenticationMessages {
   USER_NOT_FOUND = 'user not found',
   EMAIL_ALREADY_VERIFIED = 'email already verified',
   ADMIN_ROLE_CANNOT_BE_REMOVED = 'admin role cannot be removed',
+  ADMIN_ROLE_CANNOT_BE_CHANGED = 'admin role cannot be changed',
 }

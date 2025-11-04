@@ -17,7 +17,12 @@ import { RolesService } from '@modules/roles/roles.service';
 import { UsersService } from '@modules/users/users.service';
 import { InjectQueue } from '@nestjs/bullmq';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  ForbiddenException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Queue } from 'bullmq';
@@ -100,6 +105,12 @@ export class RolesManagementService {
 
   async updateUserRole(userId: string, roleId: string): Promise<void> {
     const user = await this.usersService.checkIfPasswordProvider(userId);
+
+    if (user.userRole?.role?.type === RolesTypeEnum.ADMIN) {
+      throw new ForbiddenException(
+        AuthenticationMessages.ADMIN_ROLE_CANNOT_BE_CHANGED,
+      );
+    }
 
     const role = await this.rolesService.checkIfRoleIsAssignable(roleId);
 
