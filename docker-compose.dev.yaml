@@ -2,26 +2,6 @@ version: "3.8"
 networks:
   serve-compass:
 services:
-  serve-compass-api:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: serve-compass-api
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - "${PORT}:${PORT}"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    depends_on:
-      db:
-        condition: service_healthy
-      cache:
-        condition: service_healthy
-    networks:
-      - serve-compass
   db:
     image: postgres:15-alpine
     container_name: serve-compass-db
