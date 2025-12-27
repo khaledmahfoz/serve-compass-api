@@ -1,6 +1,5 @@
 import { User } from '@entities/user';
 import { AuthProvidersEnum } from '@enums/auth-providers';
-import { RolesTypeEnum } from '@enums/roles-type';
 import { IProviderUser } from '@interfaces/auth/provider-user';
 import { IUpdateUser } from '@interfaces/users/update-user';
 import { IUser } from '@interfaces/users/user';
@@ -63,18 +62,17 @@ export class UsersService {
     await this.usersRepository.update({ email }, { emailVerified: true });
   }
 
-  async deleteUser(id: string, isAdmin: boolean = false): Promise<void> {
+  async deleteNonStaffAccount(id: string): Promise<void> {
     const user = await this.getUser(id);
-    if (user.userRole?.role?.type === RolesTypeEnum.ADMIN) {
-      throw new ForbiddenException(
-        AuthenticationMessages.ADMIN_ROLE_CANNOT_BE_REMOVED,
-      );
-    }
-    if (user.userRole !== null && !isAdmin) {
+    if (user.userRole !== null) {
       throw new ForbiddenException({
         message: 'staff accounts cannot be deleted',
       });
     }
+    await this.deleteUser(id);
+  }
+
+  async deleteUser(id: string): Promise<void> {
     await this.usersRepository.delete(id);
     await this.sessionsService.deleteUserSessions(id);
   }

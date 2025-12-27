@@ -22,6 +22,7 @@ import {
   Inject,
   Injectable,
   ForbiddenException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
@@ -135,7 +136,16 @@ export class RolesManagementService {
   }
 
   async removeUserRole(userId: string): Promise<void> {
-    await this.usersService.deleteUser(userId, true);
+    const user = await this.usersService.getUser(userId);
+    if (user.userRole?.role?.type === RolesTypeEnum.ADMIN) {
+      throw new ForbiddenException(
+        AuthenticationMessages.ADMIN_ROLE_CANNOT_BE_REMOVED,
+      );
+    }
+    if (user.userRole === null) {
+      throw new NotFoundException('No staff account found for given user id');
+    }
+    await this.usersService.deleteUser(userId);
     await this.cacheManager.del(`roles:${userId}`);
   }
 
