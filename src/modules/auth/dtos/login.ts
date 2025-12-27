@@ -1,6 +1,11 @@
 import { ILogin } from '@interfaces/auth/login';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsStrongPassword } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsStrongPassword,
+} from 'class-validator';
 
 export class LoginDto implements ILogin {
   @ApiProperty({
@@ -22,4 +27,12 @@ export class LoginDto implements ILogin {
     minSymbols: 1,
   })
   password: string;
+
+  @ApiPropertyOptional({
+    description: 'Whether to remember the user',
+    example: true,
+  })
+  @IsBoolean()
+  @IsNotEmpty()
+  rememberMe: boolean;
 }

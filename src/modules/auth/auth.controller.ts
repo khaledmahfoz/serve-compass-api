@@ -80,8 +80,9 @@ export class AuthController {
   @Post('login')
   async login(
     @Req() req: RequestType,
-    @Body() _: LoginDto,
+    @Body() { rememberMe }: LoginDto,
   ): Promise<Partial<IUser>> {
+    this.authService.checkRememberMe(req, rememberMe);
     return req.user as Partial<IUser>;
   }
 

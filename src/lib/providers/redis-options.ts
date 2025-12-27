@@ -12,7 +12,7 @@ export const RedisOptionsProvider: CacheModuleAsyncOptions = {
       const store = await redisStore({
         socket: {
           host: configService.get<string>('REDIS_HOST'),
-          port: parseInt(configService.get<string>('REDIS_PORT')!),
+          port: Number.parseInt(configService.get<string>('REDIS_PORT')!),
         },
         password: configService.get('REDIS_PASSWORD'),
         username: configService.get('REDIS_USERNAME'),

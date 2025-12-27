@@ -1,6 +1,5 @@
-import { ILogin } from './login';
-
-export interface IRegister extends ILogin {
+export interface IRegister {
+  email: string;
   fullname: string;
   firstname?: string;
   lastname?: string;

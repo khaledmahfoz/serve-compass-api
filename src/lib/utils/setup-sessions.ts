@@ -13,7 +13,7 @@ export async function setupSessions(app: INestApplication): Promise<void> {
     password: process.env.REDIS_PASSWORD!,
     socket: {
       host: process.env.REDIS_HOST!,
-      port: parseInt(process.env.REDIS_PORT!),
+      port: Number.parseInt(process.env.REDIS_PORT!),
     },
   });
 
@@ -25,8 +25,10 @@ export async function setupSessions(app: INestApplication): Promise<void> {
     client: redisClient,
     prefix: 'sessions:',
     disableTouch: true,
-    ttl: parseInt(process.env.REDIS_TTL!),
+    ttl: Number.parseInt(process.env.REDIS_TTL!),
   });
+
+  const isProduction = process.env.NODE_ENV === 'production';
 
   app.use(
     session({
@@ -43,9 +45,9 @@ export async function setupSessions(app: INestApplication): Promise<void> {
       proxy: true,
       cookie: {
         path: '/',
-        httpOnly: true,
-        secure: true,
-        maxAge: parseInt(process.env.SESSION_TTL!),
+        httpOnly: isProduction,
+        secure: isProduction,
+        maxAge: Number.parseInt(process.env.SESSION_TTL!),
         sameSite: 'lax',
       },
     }),

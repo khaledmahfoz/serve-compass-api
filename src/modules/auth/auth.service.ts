@@ -18,6 +18,7 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Queue } from 'bullmq';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -157,5 +158,12 @@ export class AuthService {
       password: hashedPassword,
     });
     await this.tokensService.deletePasswordUpdateToken(token);
+  }
+
+  checkRememberMe(req: Request, rememberMe: boolean): void {
+    if (!rememberMe) {
+      req.session.cookie.maxAge = undefined;
+      req.session.cookie.expires = undefined;
+    }
   }
 }
