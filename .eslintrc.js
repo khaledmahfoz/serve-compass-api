@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'import'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'import', 'typeorm-typescript'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -24,6 +24,8 @@ module.exports = {
         allowTypedFunctionExpressions: true,
       },
     ],
+    'typeorm-typescript/enforce-relation-types': 'error',
+    'typeorm-typescript/enforce-consistent-nullability': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-console': ['error', { allow: ['warn', 'error'] }],

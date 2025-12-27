@@ -32,7 +32,7 @@ export class Product implements IProduct {
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'categoryId' })
-  category: Category;
+  category: Category | null;
 
   @Column({ type: 'integer' })
   calories: number;

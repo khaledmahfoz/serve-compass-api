@@ -22,11 +22,11 @@ export class UserRole implements IUserRole {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
-  user: User;
+  user: User | null;
 
   @ManyToOne(() => Role, (role) => role.userRoles)
   @JoinColumn()
-  role: Role;
+  role: Role | null;
 
   @CreateDateColumn()
   createdAt: Date;

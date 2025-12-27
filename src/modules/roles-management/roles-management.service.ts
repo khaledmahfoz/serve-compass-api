@@ -93,7 +93,7 @@ export class RolesManagementService {
       role,
     });
     await this.rolesManagementRepository.save(newUserRole);
-    await this.cacheManager.set(`roles:${newUserRole.user.id}`, role.type);
+    await this.cacheManager.set(`roles:${newUserRole.user?.id}`, role.type);
     const token = await this.tokensService.setEmailVerificationToken(
       addUserRoleDto.email,
     );

@@ -7,7 +7,7 @@ export interface IProduct {
   order: number;
   isActive: boolean;
   categoryId: string;
-  category: ICategory;
+  category: ICategory | null;
   calories: number;
   isDeleted?: boolean;
   deletedAt?: Date;
