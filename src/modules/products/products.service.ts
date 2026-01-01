@@ -4,6 +4,8 @@ import { ICreateProduct } from '@interfaces/products/create-product';
 import { IGetProductsQuery } from '@interfaces/products/get-products-query';
 import { IProduct } from '@interfaces/products/product';
 import { IUpdateProduct } from '@interfaces/products/update-product';
+import { MediaService } from '@lib/services/media';
+import { constructImageFullPath } from '@lib/utils/construct-image-full-path';
 import { constructMaximumOrder } from '@lib/utils/construct-maximum-order';
 import {
   constructPaginationMetaData,
@@ -18,6 +20,7 @@ import { Repository } from 'typeorm';
 export class ProductsService {
   constructor(
     private readonly categoriesService: CategoriesService,
+    private readonly mediaService: MediaService,
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
   ) {}
@@ -30,8 +33,12 @@ export class ProductsService {
       skip: constructSkip(page, limit),
       take: limit,
     });
+    const productsWithImage = products.map((product) => ({
+      ...product,
+      image: constructImageFullPath(product.image),
+    }));
     return {
-      data: products,
+      data: productsWithImage,
       metadata: constructPaginationMetaData(page, limit, total),
     };
   }
@@ -41,6 +48,7 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException('Product not found');
     }
+    product.image = constructImageFullPath(product.image);
     return product;
   }
 
@@ -64,5 +72,21 @@ export class ProductsService {
 
   async deleteProduct(id: string): Promise<void> {
     await this.productsRepository.delete(id);
+  }
+
+  async uploadProductImage(
+    id: string,
+    image: Express.Multer.File,
+  ): Promise<void> {
+    await this.getProduct(id);
+    const keyName = `products/${id}`;
+    const imagePath = await this.mediaService.uploadImage(image, keyName);
+    await this.productsRepository.update(id, { image: imagePath });
+  }
+
+  async deleteProductImage(id: string): Promise<void> {
+    const keyName = `products/${id}`;
+    await this.mediaService.removeImage(keyName);
+    await this.productsRepository.update(id, { image: null });
   }
 }

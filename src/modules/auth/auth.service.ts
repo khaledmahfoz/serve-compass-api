@@ -64,7 +64,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<IUser> {
     const user = await this.usersService.findUserByEmail(email);
-    if (!user || !user.password)
+    if (!user?.password)
       throw new UnauthorizedException(
         AuthenticationMessages.INVALID_CREDENTIALS,
       );

@@ -76,14 +76,6 @@ export class CreateProductDto implements ICreateProduct {
   @IsOptional()
   description?: string;
 
-  @ApiPropertyOptional({
-    description: 'The image of the product',
-    example: 'https://example.com/image.jpg',
-  })
-  @IsString({ message: 'image must be a valid string' })
-  @IsOptional()
-  image?: string;
-
   @ApiProperty({
     description: 'The user who created the product',
     example: 'moderator@restaurant.com',

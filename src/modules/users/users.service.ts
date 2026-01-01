@@ -4,7 +4,9 @@ import { IProviderUser } from '@interfaces/auth/provider-user';
 import { IUpdateUser } from '@interfaces/users/update-user';
 import { IUser } from '@interfaces/users/user';
 import { AuthenticationMessages } from '@lib/messages/authentication';
+import { MediaService } from '@lib/services/media';
 import { SessionsService } from '@lib/services/sessions';
+import { constructImageFullPath } from '@lib/utils/construct-image-full-path';
 import {
   BadRequestException,
   ForbiddenException,
@@ -20,6 +22,7 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     private readonly sessionsService: SessionsService,
+    private readonly mediaService: MediaService,
   ) {}
 
   async findUserByEmail(email: string): Promise<IUser | null> {
@@ -35,6 +38,7 @@ export class UsersService {
       relations: { userRole: { role: true } },
     });
     if (!user) throw new NotFoundException('user not found');
+    user.picture = constructImageFullPath(user.picture);
     return user;
   }
 
@@ -84,5 +88,18 @@ export class UsersService {
         AuthenticationMessages.USER_SIGNED_UP_WITH_SOCIAL_PROVIDER_OR_EMAIL_NOT_VERIFIED,
       );
     return user;
+  }
+
+  async uploadUserImage(id: string, image: Express.Multer.File): Promise<void> {
+    await this.exists(id);
+    const keyName = `users/${id}`;
+    const imagePath = await this.mediaService.uploadImage(image, keyName);
+    await this.usersRepository.update(id, { picture: imagePath });
+  }
+
+  async deleteUserImage(id: string): Promise<void> {
+    const keyName = `users/${id}`;
+    await this.mediaService.removeImage(keyName);
+    await this.usersRepository.update(id, { picture: null });
   }
 }

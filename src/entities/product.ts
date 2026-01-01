@@ -47,7 +47,7 @@ export class Product implements IProduct {
   deletedAt: Date;
 
   @Column({ type: 'varchar', nullable: true })
-  image?: string;
+  image: string | null;
 
   @Column({ type: 'varchar', default: '' })
   description?: string;

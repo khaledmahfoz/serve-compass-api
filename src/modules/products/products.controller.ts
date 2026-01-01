@@ -3,6 +3,7 @@ import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-meta
 import { IProduct } from '@interfaces/products/product';
 import { Roles } from '@lib/decorators/roles';
 import { RolesGuard } from '@lib/guards/roles';
+import { createImageUploadOptions } from '@lib/utils/image-upload-options';
 import {
   Controller,
   Get,
@@ -17,15 +18,20 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 
 import { CreateProductDocs } from './docs/create-product';
 import { DeleteProductDocs } from './docs/delete-product';
+import { DeleteProductImageDocs } from './docs/delete-product-image';
 import { GetProductDocs } from './docs/get-product';
 import { GetProductsDocs } from './docs/get-products';
 import { ProductsDocs } from './docs/products';
 import { UpdateProductDocs } from './docs/update-product';
+import { UploadProductImageDocs } from './docs/upload-product-image';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { GetProductsQueryDto } from './dtos/get-products-query.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
@@ -81,5 +87,28 @@ export class ProductsController {
   @DeleteProductDocs()
   deleteProduct(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.productsService.deleteProduct(id);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
+  @UploadProductImageDocs()
+  @Post(':id/image')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadProductImage(
+    @Param('id', ParseUUIDPipe) id: string,
+    @UploadedFile(createImageUploadOptions())
+    image: Express.Multer.File,
+  ): Promise<void> {
+    return this.productsService.uploadProductImage(id, image);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
+  @Delete(':id/image')
+  @DeleteProductImageDocs()
+  async deleteProductImage(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<void> {
+    return this.productsService.deleteProductImage(id);
   }
 }

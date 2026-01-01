@@ -47,14 +47,6 @@ export class UpdateCategoryDto implements IUpdateCategory {
   @IsOptional()
   description?: string;
 
-  @ApiPropertyOptional({
-    description: 'The image of the category',
-    example: 'https://example.com/image.jpg',
-  })
-  @IsString({ message: 'image must be a valid string' })
-  @IsOptional()
-  image?: string;
-
   @ApiProperty({
     description: 'The user who updated the category',
     example: 'moderator@restaurant.com',

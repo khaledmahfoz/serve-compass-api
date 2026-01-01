@@ -26,12 +26,4 @@ export class UpdateUserDto implements IUpdateUser {
   @IsString()
   @IsOptional()
   lastname?: string;
-
-  @ApiPropertyOptional({
-    description: 'The picture of the user',
-    example: 'https://example.com/picture.jpg',
-  })
-  @IsString()
-  @IsOptional()
-  picture?: string;
 }

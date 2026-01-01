@@ -1,5 +1,6 @@
 import { Category } from '@entities/category';
 import { Product } from '@entities/product';
+import { MediaService } from '@lib/services/media';
 import { CategoriesController } from '@modules/categories/categories.controller';
 import { CategoriesService } from '@modules/categories/categories.service';
 import { RolesManagementModule } from '@modules/roles-management/roles-management.module';
@@ -12,7 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     RolesManagementModule,
   ],
   controllers: [CategoriesController],
-  providers: [CategoriesService],
+  providers: [CategoriesService, MediaService],
   exports: [CategoriesService],
 })
 export class CategoriesModule {}

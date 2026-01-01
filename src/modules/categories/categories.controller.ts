@@ -3,6 +3,7 @@ import { ICategory } from '@interfaces/categories/category';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
 import { Roles } from '@lib/decorators/roles';
 import { RolesGuard } from '@lib/guards/roles';
+import { createImageUploadOptions } from '@lib/utils/image-upload-options';
 import { CategoriesService } from '@modules/categories/categories.service';
 import { CreateCategoryDto } from '@modules/categories/dtos/create-category.dto';
 import { UpdateCategoryDto } from '@modules/categories/dtos/update-category.dto';
@@ -21,15 +22,20 @@ import {
   HttpStatus,
   UseGuards,
   Logger,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 
 import { CategoriesDocs } from './docs/categories';
 import { CreateCategoryDocs } from './docs/create-category';
 import { DeleteCategoryDocs } from './docs/delete-category';
+import { DeleteCategoryImageDocs } from './docs/delete-category-image';
 import { GetCategoriesDocs } from './docs/get-categories';
 import { GetCategoryDocs } from './docs/get-category';
 import { UpdateCategoryDocs } from './docs/update-category';
+import { UploadCategoryImageDocs } from './docs/upload-category-image';
 import { GetCategoriesQueryDto } from './dtos/get-categories-query.dto';
 
 @CategoriesDocs()
@@ -87,5 +93,29 @@ export class CategoriesController {
   @DeleteCategoryDocs()
   deleteCategory(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.categoriesService.deleteCategory(id);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
+  @Post(':id/image')
+  @UploadCategoryImageDocs()
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadCategoryImage(
+    @Param('id', ParseUUIDPipe) id: string,
+    @UploadedFile(createImageUploadOptions())
+    image: Express.Multer.File,
+  ): Promise<void> {
+    return this.categoriesService.uploadCategoryImage(id, image);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(RolesTypeEnum.ADMIN, RolesTypeEnum.MODERATOR)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete(':id/image')
+  @DeleteCategoryImageDocs()
+  async deleteCategoryImage(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<void> {
+    return this.categoriesService.deleteCategoryImage(id);
   }
 }

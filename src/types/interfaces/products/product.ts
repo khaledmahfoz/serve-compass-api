@@ -11,7 +11,7 @@ export interface IProduct {
   calories: number;
   isDeleted?: boolean;
   deletedAt?: Date;
-  image?: string;
+  image?: string | null;
   description?: string;
   createdAt: Date;
   updatedAt: Date;

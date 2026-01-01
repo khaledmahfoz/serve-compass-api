@@ -3,6 +3,8 @@ import { ICategory } from '@interfaces/categories/category';
 import { ICreateCategory } from '@interfaces/categories/create-category';
 import { IGetCategoriesQuery } from '@interfaces/categories/get-categories-query';
 import { WithPaginationMetadata } from '@interfaces/helpers/with-pagination-metadata';
+import { MediaService } from '@lib/services/media';
+import { constructImageFullPath } from '@lib/utils/construct-image-full-path';
 import {
   constructPaginationMetaData,
   constructSkip,
@@ -17,6 +19,7 @@ export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoriesRepository: Repository<Category>,
+    private readonly mediaService: MediaService,
   ) {}
 
   async getCategories(
@@ -27,8 +30,12 @@ export class CategoriesService {
       skip: constructSkip(page, limit),
       take: limit,
     });
+    const categoriesWithImage = categories.map((category) => ({
+      ...category,
+      image: constructImageFullPath(category.image),
+    }));
     return {
-      data: categories,
+      data: categoriesWithImage,
       metadata: constructPaginationMetaData(page, limit, total),
     };
   }
@@ -38,6 +45,7 @@ export class CategoriesService {
     if (!category) {
       throw new NotFoundException('Category not found');
     }
+    category.image = constructImageFullPath(category.image);
     return category;
   }
 
@@ -74,5 +82,21 @@ export class CategoriesService {
       throw new NotFoundException('Category not found');
     }
     return !!category;
+  }
+
+  async uploadCategoryImage(
+    id: string,
+    image: Express.Multer.File,
+  ): Promise<void> {
+    await this.exists(id);
+    const keyName = `categories/${id}`;
+    const imagePath = await this.mediaService.uploadImage(image, keyName);
+    await this.categoriesRepository.update(id, { image: imagePath });
+  }
+
+  async deleteCategoryImage(id: string): Promise<void> {
+    const keyName = `categories/${id}`;
+    await this.mediaService.removeImage(keyName);
+    await this.categoriesRepository.update(id, { image: null });
   }
 }
