@@ -6,6 +6,6 @@ import { getDatabaseConfig } from './database.config';
 
 config();
 
-export const dataSource = new DataSource(
+export default new DataSource(
   getDatabaseConfig(new ConfigService()) as DataSourceOptions,
 );
