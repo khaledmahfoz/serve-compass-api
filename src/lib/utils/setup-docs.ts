@@ -1,11 +1,14 @@
+import { join } from 'node:path';
+
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
   apiReference,
   NestJSReferenceConfiguration,
 } from '@scalar/nestjs-api-reference';
+import { static as expressStatic } from 'express';
 
-export async function setupSwagger(app: NestExpressApplication): Promise<void> {
+export async function setupDocs(app: NestExpressApplication): Promise<void> {
   const options = new DocumentBuilder()
     .setTitle('Serve compass')
     .setDescription('Resturant management service')
@@ -31,4 +34,6 @@ export async function setupSwagger(app: NestExpressApplication): Promise<void> {
       presistAuth: true,
     } satisfies NestJSReferenceConfiguration),
   );
+
+  app.use('/api-docs', expressStatic(join(process.cwd(), 'documentation')));
 }

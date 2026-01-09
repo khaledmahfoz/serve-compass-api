@@ -1,6 +1,6 @@
 import { UniqueConstraintFilter } from '@lib/filters/conflict-exception';
+import { setupDocs } from '@lib/utils/setup-docs';
 import { setupSessions } from '@lib/utils/setup-sessions';
-import { setupSwagger } from '@lib/utils/setup-swagger';
 import { logger } from '@lib/utils/winston-logger';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -42,7 +42,7 @@ async function bootstrap(): Promise<void> {
 
   app.useGlobalFilters(new UniqueConstraintFilter());
 
-  await setupSwagger(app);
+  await setupDocs(app);
 
   const configService = app.get(ConfigService);
 

@@ -1,99 +1,178 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Serve Compass – Restaurant Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Serve Compass is a **NestJS-based REST API** for managing restaurant data such as **products, categories, branches, users, and roles**.  
+It is designed to be the backend for web and mobile front-ends, with a focus on clean architecture, strong typing, and robust tooling.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Authentication & Authorization**
+  - Email/password login and registration
+  - Google OAuth integration
+  - Role-based access control and role management
+- **Product & Category Management**
+  - CRUD operations for categories and products
+  - Image upload and deletion (via S3-compatible storage)
+- **User & Role Management**
+  - User CRUD
+  - Assigning and managing user roles
+- **Infrastructure & Tooling**
+  - PostgreSQL via TypeORM
+  - Redis + BullMQ for background jobs/queues
+  - Nodemailer-based email sending
+  - Winston logging with daily rotate files
+  - Compodoc-powered API documentation
 
-## Project setup
+---
 
-```bash
-$ yarn install
-```
+## Tech Stack
 
-## Compile and run the project
+- **Runtime**: Node.js
+- **Framework**: NestJS
+- **Language**: TypeScript
+- **Database**: PostgreSQL (via TypeORM)
+- **Caching / Queues**: Redis, BullMQ
+- **Auth**: Passport (local + Google OAuth 2.0)
+- **Mailing**: Nodemailer
+- **Storage**: AWS S3 (via `@aws-sdk/client-s3`, `sharp` for image processing)
+- **Testing**: Jest, Supertest
+- **Documentation**: Compodoc
 
-```bash
-# development
-$ yarn run start
+---
 
-# watch mode
-$ yarn run start:dev
+## Getting Started
 
-# production mode
-$ yarn run start:prod
-```
+### Prerequisites
 
-## Run tests
+- Node.js (LTS recommended)
+- Yarn
+- Docker & Docker Compose (for local DB/Redis via `docker-compose.dev.yaml`)
 
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Installation
 
 ```bash
-$ yarn install -g mau
-$ mau deploy
+# using yarn (recommended)
+yarn install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## Running the App
 
-Check out a few resources that may come in handy when working with NestJS:
+### Development
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Start PostgreSQL/Redis/etc. via Docker and run the Nest app in watch mode:
 
-## Support
+```bash
+# start dev infra + backend (from package.json)
+yarn start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+This uses `docker-compose.dev.yaml` to bring up services and then starts Nest in watch mode.
 
-## Stay in touch
+### Production Build
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+# build
+yarn build
+
+# run compiled app
+yarn start:prod
+```
+
+---
+
+## Scripts (package.json)
+
+- **`start`** – Start NestJS in normal mode
+- **`start:dev`** – Start Docker dev services and NestJS in watch mode
+- **`start:debug`** – Start in debug mode with watch
+- **`start:prod`** – Run compiled `dist/main.js`
+- **`build`** – Compile TypeScript to `dist`
+- **`test`** – Run Jest test suite
+- **`test:watch`** – Jest in watch mode
+- **`test:cov`** – Jest with coverage
+- **`test:debug`** – Jest with Node inspector
+- **`test:e2e`** – Run e2e tests
+- **`lint`** – ESLint with auto-fix
+- **`format`** – Prettier formatting
+- **`docs:build`** – Generate Compodoc documentation
+- **`docs:post-clean`** – Remove Compodoc unneeded files
+
+Run any script with:
+
+```bash
+yarn <script-name>
+```
+
+---
+
+## Documentation (Compodoc)
+
+The project uses **Compodoc** for API and architecture documentation.
+
+```bash
+# generate documentation
+yarn docs:build
+```
+
+Additional custom markdown documentation pages are configured via:
+
+- `src/docs/summary.json`
+- Markdown files such as `src/docs/introduction.md`
+
+These appear in the Compodoc sidebar under the additional documentation section.
+
+---
+
+## Project Structure (High Level)
+
+```text
+src/
+  entities/             # TypeORM entities (User, Role, Product, Category, etc.)
+  lib/                  # Shared libraries, providers, utils, decorators
+  migrations/           # Database migrations
+  modules/
+    auth/               # Auth & session management
+    users/              # User CRUD and related logic
+    roles/              # Roles and permissions
+    roles-management/   # Managing user roles
+    categories/         # Category CRUD and images
+    products/           # Product CRUD and images
+  types/                # Shared interfaces, enums, DTO types
+  docs/                 # Custom markdown docs wired into Compodoc
+main.ts                 # Application bootstrap
+main.module.ts          # Root NestJS module
+```
+
+`dist/` and `documentation/` are generated folders for compiled code and generated docs, respectively.
+
+---
+
+## Testing
+
+Run all tests:
+
+```bash
+yarn test
+```
+
+Run end-to-end tests:
+
+```bash
+yarn test:e2e
+```
+
+Run tests with coverage:
+
+```bash
+yarn test:cov
+```
+
+---
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is currently **UNLICENSED** (see `package.json`).  
+Check with the repository owner before using it in production or distributing derivatives.

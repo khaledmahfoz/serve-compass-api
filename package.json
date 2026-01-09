@@ -1,15 +1,15 @@
 {
   "name": "serve-compass",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A restaurant management system for managing products, categories, branches, and staff.",
+  "author": "Khaled Mahfoz",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "yarn docs:build && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "docker-compose -f docker-compose.dev.yaml up --build -d & nest start --watch",
+    "start:dev": "docker-compose -f docker-compose.dev.yaml up --build -d & yarn docs:build && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
@@ -18,7 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docs:post-clean": "rm -rf documentation/template-playground documentation/template-playground-app",
+    "docs:build": "compodoc -p tsconfig.json --includes src/docs && yarn docs:post-clean"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.958.0",
@@ -58,6 +60,7 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.32",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/swagger": "^11.0.3",
