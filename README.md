@@ -45,7 +45,7 @@ It is designed to be the backend for web and mobile front-ends, with a focus on 
 
 ### Prerequisites
 
-- Node.js (LTS recommended)
+- Node.js - docker image: 22-alpine3.21 (recommended)
 - Yarn
 - Docker & Docker Compose (for local DB/Redis via `docker-compose.dev.yaml`)
 
@@ -53,7 +53,7 @@ It is designed to be the backend for web and mobile front-ends, with a focus on 
 
 ```bash
 # using yarn (recommended)
-yarn install
+yarn
 ```
 
 ---
