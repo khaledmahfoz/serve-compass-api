@@ -21,6 +21,7 @@ RUN adduser --disabled-password --gecos '' --no-create-home appuser \
 && mkdir -p /app/logs && chown -R appuser:appuser /app/logs
 COPY --from=builder --chown=appuser:appuser /app/dist ./dist
 COPY --from=builder --chown=appuser:appuser /app/src/lib/templates ./templates
+COPY --from=builder --chown=appuser:appuser /app/documentation/ ./documentation
 COPY --from=deps --chown=appuser:appuser /app/node_modules ./node_modules
 COPY --chown=appuser:appuser package.json ./
 USER appuser
