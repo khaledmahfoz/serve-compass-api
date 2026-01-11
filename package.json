@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "docker-compose -f docker-compose.dev.yaml up --build -d & yarn docs:build && nest start --watch",
+    "start:dev": "docker-compose -f docker-compose.dev.yaml up --build -d && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
@@ -122,7 +122,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.{md,ts}": [
+    "*.{md}": [
       "yarn docs:build",
       "git add"
     ]

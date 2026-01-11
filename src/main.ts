@@ -42,9 +42,11 @@ async function bootstrap(): Promise<void> {
 
   app.useGlobalFilters(new UniqueConstraintFilter());
 
-  await setupDocs(app);
-
   const configService = app.get(ConfigService);
+
+  if (configService.get<string>('SWAGGER_ENABLED') === 'true') {
+    await setupDocs(app);
+  }
 
   await app.listen(configService.getOrThrow<number>('PORT'));
 }
