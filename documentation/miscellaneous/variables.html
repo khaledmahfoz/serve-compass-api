@@ -1,0 +1,1087 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>serve-compass documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">serve-compass documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#BullOptionsProvider" title="src/lib/providers/bull-options.ts" ><b>BullOptionsProvider</b>&nbsp;&nbsp;&nbsp;(src/.../bull-options.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#colorizer" title="src/lib/utils/winston-logger.ts" ><b>colorizer</b>&nbsp;&nbsp;&nbsp;(src/.../winston-logger.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#constructImageFullPath" title="src/lib/utils/construct-image-full-path.ts" ><b>constructImageFullPath</b>&nbsp;&nbsp;&nbsp;(src/.../construct-image-full-path.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#constructMaximumOrder" title="src/lib/utils/construct-maximum-order.ts" ><b>constructMaximumOrder</b>&nbsp;&nbsp;&nbsp;(src/.../construct-maximum-order.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#constructPaginationMetaData" title="src/lib/utils/construct-pagination-metadata.ts" ><b>constructPaginationMetaData</b>&nbsp;&nbsp;&nbsp;(src/.../construct-pagination-metadata.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#constructSkip" title="src/lib/utils/construct-pagination-metadata.ts" ><b>constructSkip</b>&nbsp;&nbsp;&nbsp;(src/.../construct-pagination-metadata.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#databaseFactory" title="src/lib/database/database.provider.ts" ><b>databaseFactory</b>&nbsp;&nbsp;&nbsp;(src/.../database.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#databaseFactoryProvider" title="src/lib/database/database.provider.ts" ><b>databaseFactoryProvider</b>&nbsp;&nbsp;&nbsp;(src/.../database.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#dataSource" title="src/lib/database/data-source.ts" ><b>dataSource</b>&nbsp;&nbsp;&nbsp;(src/.../data-source.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#errorLevels" title="src/lib/utils/winston-logger.ts" ><b>errorLevels</b>&nbsp;&nbsp;&nbsp;(src/.../winston-logger.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#excludeColumns" title="src/lib/utils/exclude-db-column.ts" ><b>excludeColumns</b>&nbsp;&nbsp;&nbsp;(src/.../exclude-db-column.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getDatabaseConfig" title="src/lib/database/database.config.ts" ><b>getDatabaseConfig</b>&nbsp;&nbsp;&nbsp;(src/.../database.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#logger" title="src/lib/utils/winston-logger.ts" ><b>logger</b>&nbsp;&nbsp;&nbsp;(src/.../winston-logger.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#logout" title="src/lib/utils/logout.ts" ><b>logout</b>&nbsp;&nbsp;&nbsp;(src/.../logout.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MailerOptionsProvider" title="src/lib/providers/mailer-options.ts" ><b>MailerOptionsProvider</b>&nbsp;&nbsp;&nbsp;(src/.../mailer-options.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PerPageLimit" title="src/lib/constants/per-page-limit.ts" ><b>PerPageLimit</b>&nbsp;&nbsp;&nbsp;(src/.../per-page-limit.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RedisOptionsProvider" title="src/lib/providers/redis-options.ts" ><b>RedisOptionsProvider</b>&nbsp;&nbsp;&nbsp;(src/.../redis-options.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Roles" title="src/lib/decorators/roles.ts" ><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#saltRounds" title="src/lib/constants/salt-rounds.ts" ><b>saltRounds</b>&nbsp;&nbsp;&nbsp;(src/.../salt-rounds.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Serializer" title="src/lib/decorators/serializer.ts" ><b>Serializer</b>&nbsp;&nbsp;&nbsp;(src/.../serializer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#User" title="src/lib/decorators/user.ts" ><b>User</b>&nbsp;&nbsp;&nbsp;(src/.../user.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/lib/providers/bull-options.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BullOptionsProvider"></a>
+                    <span class="name">
+                        <span ><b>BullOptionsProvider</b></span>
+                        <a href="#BullOptionsProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>SharedBullAsyncConfiguration</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  imports: [ConfigModule],
+  useFactory: (configService: ConfigService) &#x3D;&gt; {
+    return {
+      connection: {
+        host: configService.getOrThrow&lt;string&gt;(&#x27;REDIS_HOST&#x27;),
+        port: configService.getOrThrow&lt;number&gt;(&#x27;REDIS_PORT&#x27;),
+        password: configService.getOrThrow&lt;string&gt;(&#x27;REDIS_PASSWORD&#x27;),
+        retryDelayOnFailover: 100,
+        enableReadyCheck: false,
+        retryStrategy: (times) &#x3D;&gt; {
+          return Math.min(times * 1000, 10000);
+        },
+      },
+      defaultJobOptions: {
+        removeOnComplete: true,
+        removeOnFail: false,
+        attempts: 5,
+        backoff: {
+          type: &#x27;exponential&#x27;,
+          delay: 1000,
+        },
+      },
+    };
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/utils/winston-logger.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colorizer"></a>
+                    <span class="name">
+                        <span ><b>colorizer</b></span>
+                        <a href="#colorizer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>winston.format.colorize()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorLevels"></a>
+                    <span class="name">
+                        <span ><b>errorLevels</b></span>
+                        <a href="#errorLevels"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  levels: {
+    fatal: 0,
+    error: 1,
+    verbose: 2,
+    warn: 3,
+    info: 4,
+    debug: 5,
+  },
+  colors: {
+    fatal: &#x27;bold red&#x27;,
+    error: &#x27;red&#x27;,
+    verbose: &#x27;italic yellow&#x27;,
+    warn: &#x27;italic yellow&#x27;,
+    info: &#x27;blue&#x27;,
+    debug: &#x27;bold green&#x27;,
+    context: &#x27;bold magenta&#x27;,
+    date: &#x27;bold cyan&#x27;,
+  },
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logger"></a>
+                    <span class="name">
+                        <span ><b>logger</b></span>
+                        <a href="#logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.colorize({
+          all: true,
+        }),
+        winston.format.printf((info) &#x3D;&gt; {
+          const date &#x3D; new Date().toLocaleString(&#x27;en-US&#x27;, {
+            timeZone: &#x27;Africa/Cairo&#x27;,
+          });
+          return &#x60;${colorizer.colorize(&#x27;context&#x27;, &#x60;[${info.context}]&#x60;)}\t[${info.level}] ${colorizer.colorize(&#x27;date&#x27;, &#x60;[${date}]&#x60;)}  ${info.message}&#x60;;
+        }),
+      ),
+    }),
+    new winston.transports.DailyRotateFile({
+      filename: &#x27;logs/debug-%DATE%.log&#x27;,
+      datePattern: &#x27;YYYY-MM-DD&#x27;,
+      level: &#x27;debug&#x27;,
+      zippedArchive: true,
+      maxSize: &#x27;20m&#x27;,
+      maxFiles: &#x27;14d&#x27;,
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json(),
+        winston.format.prettyPrint(),
+      ),
+    }),
+    new winston.transports.DailyRotateFile({
+      level: &#x27;error&#x27;,
+      zippedArchive: true,
+      filename: &#x27;logs/error-%DATE%.log&#x27;,
+      datePattern: &#x27;YYYY-MM-DD&#x27;,
+      maxSize: &#x27;20m&#x27;,
+      maxFiles: &#x27;7d&#x27;,
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json(),
+      ),
+    }),
+  ],
+} satisfies WinstonModuleOptions</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/utils/construct-image-full-path.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="constructImageFullPath"></a>
+                    <span class="name">
+                        <span ><b>constructImageFullPath</b></span>
+                        <a href="#constructImageFullPath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  imagePath: string | null,
+): string | null &#x3D;&gt; {
+  return imagePath
+    ? &#x60;${process.env.MEDIA_URL}/${process.env.MEDIA_FOLDER}/${imagePath}&#x60;
+    : null;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/utils/construct-maximum-order.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="constructMaximumOrder"></a>
+                    <span class="name">
+                        <span ><b>constructMaximumOrder</b></span>
+                        <a href="#constructMaximumOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>async &lt;T extends ObjectLiteral&gt;(
+  repository: Repository&lt;T&gt;,
+): Promise&lt;number&gt; &#x3D;&gt; {
+  const latestOrder &#x3D; await repository.maximum(
+    &#x27;order&#x27; as PickKeysByType&lt;T, number&gt;,
+  );
+  return latestOrder ? latestOrder + 1 : 1;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/utils/construct-pagination-metadata.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="constructPaginationMetaData"></a>
+                    <span class="name">
+                        <span ><b>constructPaginationMetaData</b></span>
+                        <a href="#constructPaginationMetaData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  page: number,
+  limit: number,
+  total: number,
+): IPaginationMetaData &#x3D;&gt; ({
+  page,
+  perPage: limit,
+  total,
+  lastPage: Math.ceil(total / limit),
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="constructSkip"></a>
+                    <span class="name">
+                        <span ><b>constructSkip</b></span>
+                        <a href="#constructSkip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(page: number, limit: number): number &#x3D;&gt;
+  (page - 1) * limit</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/database/database.provider.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="databaseFactory"></a>
+                    <span class="name">
+                        <span ><b>databaseFactory</b></span>
+                        <a href="#databaseFactory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  configService: ConfigService,
+): TypeOrmModuleOptions &#x3D;&gt; {
+  const logger &#x3D; new Logger(&#x27;DatabaseFactory&#x27;);
+  return {
+    ...getDatabaseConfig(configService),
+    poolErrorHandler: (err: Error) &#x3D;&gt; {
+      logger.error(&#x27;Database pool error:&#x27;, err);
+    },
+  };
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="databaseFactoryProvider"></a>
+                    <span class="name">
+                        <span ><b>databaseFactoryProvider</b></span>
+                        <a href="#databaseFactoryProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  imports: [ConfigModule],
+  inject: [ConfigService],
+  useFactory: databaseFactory,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/database/data-source.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataSource"></a>
+                    <span class="name">
+                        <span ><b>dataSource</b></span>
+                        <a href="#dataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new DataSource(
+  getDatabaseConfig(new ConfigService()) as DataSourceOptions,
+)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/utils/exclude-db-column.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="excludeColumns"></a>
+                    <span class="name">
+                        <span ><b>excludeColumns</b></span>
+                        <a href="#excludeColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&lt;Entity&gt;(
+  entity: ObjectType&lt;Entity&gt;,
+  columnsToExclude: string[],
+): string[] &#x3D;&gt;
+  dataSource
+    .getRepository(entity)
+    .metadata.columns.map((column) &#x3D;&gt; column.databaseName)
+    .filter((columnName) &#x3D;&gt; !columnsToExclude.includes(columnName))</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/database/database.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getDatabaseConfig"></a>
+                    <span class="name">
+                        <span ><b>getDatabaseConfig</b></span>
+                        <a href="#getDatabaseConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  configService: ConfigService,
+): TypeOrmModuleOptions &#x3D;&gt; {
+  const isProduction &#x3D;
+    configService.getOrThrow&lt;string&gt;(&#x27;NODE_ENV&#x27;) &#x3D;&#x3D;&#x3D; &#x27;production&#x27;;
+  return {
+    type: configService.getOrThrow&lt;&#x27;postgres&#x27;&gt;(&#x27;DATABASE_TYPE&#x27;),
+    host: configService.getOrThrow&lt;string&gt;(&#x27;DATABASE_HOST&#x27;),
+    port: configService.getOrThrow&lt;number&gt;(&#x27;DATABASE_PORT&#x27;),
+    username: configService.getOrThrow&lt;string&gt;(&#x27;DATABASE_USER_NAME&#x27;),
+    password: configService.getOrThrow&lt;string&gt;(&#x27;DATABASE_PASSWORD&#x27;),
+    database: configService.getOrThrow&lt;string&gt;(&#x27;DATABASE_NAME&#x27;),
+    autoLoadEntities: true,
+    synchronize: !isProduction,
+    logging: false,
+    migrationsRun: false,
+  };
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/utils/logout.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(req: Request, res: Response): void &#x3D;&gt; {
+  try {
+    req.session.destroy((err) &#x3D;&gt; {
+      if (err) throw err;
+    });
+    res.clearCookie(&#x27;sid&#x27;);
+  } catch {
+    throw new UnauthorizedException(AuthenticationMessages.LOGOUT_FAILED);
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/providers/mailer-options.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MailerOptionsProvider"></a>
+                    <span class="name">
+                        <span ><b>MailerOptionsProvider</b></span>
+                        <a href="#MailerOptionsProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MailerAsyncOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  imports: [ConfigModule],
+  useFactory: async (config: ConfigService) &#x3D;&gt; ({
+    transport: {
+      host: config.getOrThrow&lt;string&gt;(&#x27;MAIL_HOST&#x27;),
+      port: config.getOrThrow&lt;number&gt;(&#x27;MAIL_PORT&#x27;),
+      secure: false,
+      auth: {
+        user: config.getOrThrow&lt;string&gt;(&#x27;MAIL_USER&#x27;),
+        pass: config.getOrThrow&lt;string&gt;(&#x27;MAIL_PASSWORD&#x27;),
+      },
+    },
+    defaults: { from: config.getOrThrow&lt;string&gt;(&#x27;MAIL_FROM&#x27;) },
+    template: {
+      dir: cwd() + &#x27;/templates&#x27;,
+      adapter: new PugAdapter(),
+      options: { strict: true },
+    },
+    verifyTransporters: true,
+  }),
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/constants/per-page-limit.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PerPageLimit"></a>
+                    <span class="name">
+                        <span ><b>PerPageLimit</b></span>
+                        <a href="#PerPageLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>10</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/providers/redis-options.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RedisOptionsProvider"></a>
+                    <span class="name">
+                        <span ><b>RedisOptionsProvider</b></span>
+                        <a href="#RedisOptionsProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CacheModuleAsyncOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  isGlobal: true,
+  imports: [ConfigModule],
+  useFactory: async (configService: ConfigService) &#x3D;&gt; {
+    const logger &#x3D; new Logger(&#x27;RedisOptionsProvider&#x27;);
+    try {
+      const store &#x3D; await redisStore({
+        socket: {
+          host: configService.get&lt;string&gt;(&#x27;REDIS_HOST&#x27;),
+          port: Number.parseInt(configService.get&lt;string&gt;(&#x27;REDIS_PORT&#x27;)!),
+        },
+        password: configService.get(&#x27;REDIS_PASSWORD&#x27;),
+        username: configService.get(&#x27;REDIS_USERNAME&#x27;),
+      });
+      logger.log(&#x27;Redis connection was successful&#x27;);
+      return {
+        store: () &#x3D;&gt; store,
+      };
+    } catch (error) {
+      logger.error(&#x60;Redis connection error: ${error}&#x60;);
+      throw new InternalServerErrorException(&#x27;Redis connection error&#x27;);
+    }
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/decorators/roles.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Roles"></a>
+                    <span class="name">
+                        <span ><b>Roles</b></span>
+                        <a href="#Roles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(...roles: string[]): CustomDecorator&lt;string&gt; &#x3D;&gt;
+  SetMetadata(&#x27;roles&#x27;, roles)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/constants/salt-rounds.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saltRounds"></a>
+                    <span class="name">
+                        <span ><b>saltRounds</b></span>
+                        <a href="#saltRounds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>10</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/decorators/serializer.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Serializer"></a>
+                    <span class="name">
+                        <span ><b>Serializer</b></span>
+                        <a href="#Serializer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  options: ClassSerializerContextOptions,
+): CustomDecorator&lt;string&gt; &#x3D;&gt; SetMetadata(&#x27;serializer&#x27;, options)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/lib/decorators/user.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="User"></a>
+                    <span class="name">
+                        <span ><b>User</b></span>
+                        <a href="#User"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(
+  (_: unknown, ctx: ExecutionContext) &#x3D;&gt; {
+    const request &#x3D; ctx.switchToHttp().getRequest&lt;Request&gt;();
+    if (!request.user) {
+      throw new UnauthorizedException();
+    }
+    return request.user;
+  },
+)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

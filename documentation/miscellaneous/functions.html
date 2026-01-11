@@ -1,0 +1,1953 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>serve-compass documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">serve-compass documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-functions">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Functions</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#AddUserRoleDocs" title="src/modules/roles-management/docs/add-user-role.ts" ><b>AddUserRoleDocs</b>&nbsp;&nbsp;&nbsp;(src/.../add-user-role.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bootstrap" title="src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(src/.../main.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CategoriesDocs" title="src/modules/categories/docs/categories.ts" ><b>CategoriesDocs</b>&nbsp;&nbsp;&nbsp;(src/.../categories.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ChangeEmailDocs" title="src/modules/auth/docs/change-email.ts" ><b>ChangeEmailDocs</b>&nbsp;&nbsp;&nbsp;(src/.../change-email.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ChangePasswordDocs" title="src/modules/auth/docs/change-password.ts" ><b>ChangePasswordDocs</b>&nbsp;&nbsp;&nbsp;(src/.../change-password.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CreateCategoryDocs" title="src/modules/categories/docs/create-category.ts" ><b>CreateCategoryDocs</b>&nbsp;&nbsp;&nbsp;(src/.../create-category.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#createImageUploadOptions" title="src/lib/utils/image-upload-options.ts" ><b>createImageUploadOptions</b>&nbsp;&nbsp;&nbsp;(src/.../image-upload-options.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CreateProductDocs" title="src/modules/products/docs/create-product.ts" ><b>CreateProductDocs</b>&nbsp;&nbsp;&nbsp;(src/.../create-product.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeleteCategoryDocs" title="src/modules/categories/docs/delete-category.ts" ><b>DeleteCategoryDocs</b>&nbsp;&nbsp;&nbsp;(src/.../delete-category.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeleteCategoryImageDocs" title="src/modules/categories/docs/delete-category-image.ts" ><b>DeleteCategoryImageDocs</b>&nbsp;&nbsp;&nbsp;(src/.../delete-category-image.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeleteProductDocs" title="src/modules/products/docs/delete-product.ts" ><b>DeleteProductDocs</b>&nbsp;&nbsp;&nbsp;(src/.../delete-product.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeleteProductImageDocs" title="src/modules/products/docs/delete-product-image.ts" ><b>DeleteProductImageDocs</b>&nbsp;&nbsp;&nbsp;(src/.../delete-product-image.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeleteUserDocs" title="src/modules/users/docs/delete-user.ts" ><b>DeleteUserDocs</b>&nbsp;&nbsp;&nbsp;(src/.../delete-user.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DeleteUserImageDocs" title="src/modules/users/docs/delete-user-image.ts" ><b>DeleteUserImageDocs</b>&nbsp;&nbsp;&nbsp;(src/.../delete-user-image.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ErrorDocs" title="src/lib/docs/error.ts" ><b>ErrorDocs</b>&nbsp;&nbsp;&nbsp;(src/.../error.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetAssignableRolesDocs" title="src/modules/roles/docs/get-assignable-roles.ts" ><b>GetAssignableRolesDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-assignable-roles.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetCategoriesDocs" title="src/modules/categories/docs/get-categories.ts" ><b>GetCategoriesDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-categories.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetCategoryDocs" title="src/modules/categories/docs/get-category.ts" ><b>GetCategoryDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-category.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetGoogleDocs" title="src/modules/auth/docs/get-google.ts" ><b>GetGoogleDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-google.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetProductDocs" title="src/modules/products/docs/get-product.ts" ><b>GetProductDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-product.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetProductsDocs" title="src/modules/products/docs/get-products.ts" ><b>GetProductsDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-products.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetUserDocs" title="src/modules/users/docs/get-user.ts" ><b>GetUserDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-user.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GetUsersRolesDocs" title="src/modules/roles-management/docs/get-users-roles.ts" ><b>GetUsersRolesDocs</b>&nbsp;&nbsp;&nbsp;(src/.../get-users-roles.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoginDocs" title="src/modules/auth/docs/login.ts" ><b>LoginDocs</b>&nbsp;&nbsp;&nbsp;(src/.../login.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LogoutDocs" title="src/modules/auth/docs/logout.ts" ><b>LogoutDocs</b>&nbsp;&nbsp;&nbsp;(src/.../logout.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Match" title="src/lib/decorators/match.ts" ><b>Match</b>&nbsp;&nbsp;&nbsp;(src/.../match.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ProductsDocs" title="src/modules/products/docs/products.ts" ><b>ProductsDocs</b>&nbsp;&nbsp;&nbsp;(src/.../products.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RegisterDocs" title="src/modules/auth/docs/register.ts" ><b>RegisterDocs</b>&nbsp;&nbsp;&nbsp;(src/.../register.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RemoveUserRoleDocs" title="src/modules/roles-management/docs/remove-user-role.ts" ><b>RemoveUserRoleDocs</b>&nbsp;&nbsp;&nbsp;(src/.../remove-user-role.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ResetPasswordDocs" title="src/modules/auth/docs/reset-password.ts" ><b>ResetPasswordDocs</b>&nbsp;&nbsp;&nbsp;(src/.../reset-password.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RolesDocs" title="src/modules/roles/docs/roles.ts" ><b>RolesDocs</b>&nbsp;&nbsp;&nbsp;(src/.../roles.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RolesManagementDocs" title="src/modules/roles-management/docs/roles-management.ts" ><b>RolesManagementDocs</b>&nbsp;&nbsp;&nbsp;(src/.../roles-management.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SendResetPasswordEmailDocs" title="src/modules/auth/docs/send-reset-password-email.ts" ><b>SendResetPasswordEmailDocs</b>&nbsp;&nbsp;&nbsp;(src/.../send-reset-password-email.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SendVerifyEmailDocs" title="src/modules/auth/docs/send-verify-email.ts" ><b>SendVerifyEmailDocs</b>&nbsp;&nbsp;&nbsp;(src/.../send-verify-email.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#setupDocs" title="src/lib/utils/setup-docs.ts" ><b>setupDocs</b>&nbsp;&nbsp;&nbsp;(src/.../setup-docs.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#setupSessions" title="src/lib/utils/setup-sessions.ts" ><b>setupSessions</b>&nbsp;&nbsp;&nbsp;(src/.../setup-sessions.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UpdateCategoryDocs" title="src/modules/categories/docs/update-category.ts" ><b>UpdateCategoryDocs</b>&nbsp;&nbsp;&nbsp;(src/.../update-category.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UpdateProductDocs" title="src/modules/products/docs/update-product.ts" ><b>UpdateProductDocs</b>&nbsp;&nbsp;&nbsp;(src/.../update-product.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UpdateUserDocs" title="src/modules/users/docs/update-user.ts" ><b>UpdateUserDocs</b>&nbsp;&nbsp;&nbsp;(src/.../update-user.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UpdateUserRoleDocs" title="src/modules/roles-management/docs/update-user-role.ts" ><b>UpdateUserRoleDocs</b>&nbsp;&nbsp;&nbsp;(src/.../update-user-role.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UploadCategoryImageDocs" title="src/modules/categories/docs/upload-category-image.ts" ><b>UploadCategoryImageDocs</b>&nbsp;&nbsp;&nbsp;(src/.../upload-category-image.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UploadProductImageDocs" title="src/modules/products/docs/upload-product-image.ts" ><b>UploadProductImageDocs</b>&nbsp;&nbsp;&nbsp;(src/.../upload-product-image.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UploadUserImageDocs" title="src/modules/users/docs/upload-user-image.ts" ><b>UploadUserImageDocs</b>&nbsp;&nbsp;&nbsp;(src/.../upload-user-image.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UsersDocs" title="src/modules/users/docs/users.ts" ><b>UsersDocs</b>&nbsp;&nbsp;&nbsp;(src/.../users.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#VerifyEmailDocs" title="src/modules/auth/docs/verify-email.ts" ><b>VerifyEmailDocs</b>&nbsp;&nbsp;&nbsp;(src/.../verify-email.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/modules/roles-management/docs/add-user-role.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AddUserRoleDocs"></a>
+                    <span class="name">
+                        <span ><b>AddUserRoleDocs</b></span>
+                        <a href="#AddUserRoleDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>AddUserRoleDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/main.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bootstrap"></a>
+                    <span class="name">
+                        <span ><b>bootstrap</b></span>
+                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>bootstrap()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/categories.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CategoriesDocs"></a>
+                    <span class="name">
+                        <span ><b>CategoriesDocs</b></span>
+                        <a href="#CategoriesDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>CategoriesDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/change-email.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ChangeEmailDocs"></a>
+                    <span class="name">
+                        <span ><b>ChangeEmailDocs</b></span>
+                        <a href="#ChangeEmailDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ChangeEmailDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/change-password.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ChangePasswordDocs"></a>
+                    <span class="name">
+                        <span ><b>ChangePasswordDocs</b></span>
+                        <a href="#ChangePasswordDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ChangePasswordDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/create-category.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CreateCategoryDocs"></a>
+                    <span class="name">
+                        <span ><b>CreateCategoryDocs</b></span>
+                        <a href="#CreateCategoryDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>CreateCategoryDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/lib/utils/image-upload-options.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createImageUploadOptions"></a>
+                    <span class="name">
+                        <span ><b>createImageUploadOptions</b></span>
+                        <a href="#createImageUploadOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createImageUploadOptions(options?)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>options</td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>ParseFilePipe</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/create-product.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CreateProductDocs"></a>
+                    <span class="name">
+                        <span ><b>CreateProductDocs</b></span>
+                        <a href="#CreateProductDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>CreateProductDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/delete-category.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeleteCategoryDocs"></a>
+                    <span class="name">
+                        <span ><b>DeleteCategoryDocs</b></span>
+                        <a href="#DeleteCategoryDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>DeleteCategoryDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/delete-category-image.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeleteCategoryImageDocs"></a>
+                    <span class="name">
+                        <span ><b>DeleteCategoryImageDocs</b></span>
+                        <a href="#DeleteCategoryImageDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>DeleteCategoryImageDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/delete-product.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeleteProductDocs"></a>
+                    <span class="name">
+                        <span ><b>DeleteProductDocs</b></span>
+                        <a href="#DeleteProductDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>DeleteProductDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/delete-product-image.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeleteProductImageDocs"></a>
+                    <span class="name">
+                        <span ><b>DeleteProductImageDocs</b></span>
+                        <a href="#DeleteProductImageDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>DeleteProductImageDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/users/docs/delete-user.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeleteUserDocs"></a>
+                    <span class="name">
+                        <span ><b>DeleteUserDocs</b></span>
+                        <a href="#DeleteUserDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>DeleteUserDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/users/docs/delete-user-image.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DeleteUserImageDocs"></a>
+                    <span class="name">
+                        <span ><b>DeleteUserImageDocs</b></span>
+                        <a href="#DeleteUserImageDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>DeleteUserImageDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/lib/docs/error.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ErrorDocs"></a>
+                    <span class="name">
+                        <span ><b>ErrorDocs</b></span>
+                        <a href="#ErrorDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ErrorDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/roles/docs/get-assignable-roles.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetAssignableRolesDocs"></a>
+                    <span class="name">
+                        <span ><b>GetAssignableRolesDocs</b></span>
+                        <a href="#GetAssignableRolesDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetAssignableRolesDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/get-categories.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetCategoriesDocs"></a>
+                    <span class="name">
+                        <span ><b>GetCategoriesDocs</b></span>
+                        <a href="#GetCategoriesDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetCategoriesDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/get-category.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetCategoryDocs"></a>
+                    <span class="name">
+                        <span ><b>GetCategoryDocs</b></span>
+                        <a href="#GetCategoryDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetCategoryDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/get-google.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetGoogleDocs"></a>
+                    <span class="name">
+                        <span ><b>GetGoogleDocs</b></span>
+                        <a href="#GetGoogleDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetGoogleDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/get-product.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetProductDocs"></a>
+                    <span class="name">
+                        <span ><b>GetProductDocs</b></span>
+                        <a href="#GetProductDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetProductDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/get-products.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetProductsDocs"></a>
+                    <span class="name">
+                        <span ><b>GetProductsDocs</b></span>
+                        <a href="#GetProductsDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetProductsDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/users/docs/get-user.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetUserDocs"></a>
+                    <span class="name">
+                        <span ><b>GetUserDocs</b></span>
+                        <a href="#GetUserDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetUserDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/roles-management/docs/get-users-roles.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GetUsersRolesDocs"></a>
+                    <span class="name">
+                        <span ><b>GetUsersRolesDocs</b></span>
+                        <a href="#GetUsersRolesDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>GetUsersRolesDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/login.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoginDocs"></a>
+                    <span class="name">
+                        <span ><b>LoginDocs</b></span>
+                        <a href="#LoginDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>LoginDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/logout.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LogoutDocs"></a>
+                    <span class="name">
+                        <span ><b>LogoutDocs</b></span>
+                        <a href="#LogoutDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>LogoutDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/lib/decorators/match.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Match"></a>
+                    <span class="name">
+                        <span ><b>Match</b></span>
+                        <a href="#Match"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>Match(property: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, validationOptions?: ValidationOptions)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>property</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>validationOptions</td>
+                                            <td>
+                                                        <code>ValidationOptions</code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/products.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ProductsDocs"></a>
+                    <span class="name">
+                        <span ><b>ProductsDocs</b></span>
+                        <a href="#ProductsDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ProductsDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/register.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RegisterDocs"></a>
+                    <span class="name">
+                        <span ><b>RegisterDocs</b></span>
+                        <a href="#RegisterDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>RegisterDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/roles-management/docs/remove-user-role.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RemoveUserRoleDocs"></a>
+                    <span class="name">
+                        <span ><b>RemoveUserRoleDocs</b></span>
+                        <a href="#RemoveUserRoleDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>RemoveUserRoleDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/reset-password.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ResetPasswordDocs"></a>
+                    <span class="name">
+                        <span ><b>ResetPasswordDocs</b></span>
+                        <a href="#ResetPasswordDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ResetPasswordDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/roles/docs/roles.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RolesDocs"></a>
+                    <span class="name">
+                        <span ><b>RolesDocs</b></span>
+                        <a href="#RolesDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>RolesDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/roles-management/docs/roles-management.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RolesManagementDocs"></a>
+                    <span class="name">
+                        <span ><b>RolesManagementDocs</b></span>
+                        <a href="#RolesManagementDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>RolesManagementDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/send-reset-password-email.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SendResetPasswordEmailDocs"></a>
+                    <span class="name">
+                        <span ><b>SendResetPasswordEmailDocs</b></span>
+                        <a href="#SendResetPasswordEmailDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>SendResetPasswordEmailDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/send-verify-email.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SendVerifyEmailDocs"></a>
+                    <span class="name">
+                        <span ><b>SendVerifyEmailDocs</b></span>
+                        <a href="#SendVerifyEmailDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>SendVerifyEmailDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/lib/utils/setup-docs.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupDocs"></a>
+                    <span class="name">
+                        <span ><b>setupDocs</b></span>
+                        <a href="#setupDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setupDocs(app: NestExpressApplication)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>app</td>
+                                            <td>
+                                                        <code>NestExpressApplication</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/lib/utils/setup-sessions.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupSessions"></a>
+                    <span class="name">
+                        <span ><b>setupSessions</b></span>
+                        <a href="#setupSessions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setupSessions(app: INestApplication)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>app</td>
+                                            <td>
+                                                        <code>INestApplication</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/update-category.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdateCategoryDocs"></a>
+                    <span class="name">
+                        <span ><b>UpdateCategoryDocs</b></span>
+                        <a href="#UpdateCategoryDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UpdateCategoryDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/update-product.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdateProductDocs"></a>
+                    <span class="name">
+                        <span ><b>UpdateProductDocs</b></span>
+                        <a href="#UpdateProductDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UpdateProductDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/users/docs/update-user.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdateUserDocs"></a>
+                    <span class="name">
+                        <span ><b>UpdateUserDocs</b></span>
+                        <a href="#UpdateUserDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UpdateUserDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/roles-management/docs/update-user-role.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdateUserRoleDocs"></a>
+                    <span class="name">
+                        <span ><b>UpdateUserRoleDocs</b></span>
+                        <a href="#UpdateUserRoleDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UpdateUserRoleDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/categories/docs/upload-category-image.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UploadCategoryImageDocs"></a>
+                    <span class="name">
+                        <span ><b>UploadCategoryImageDocs</b></span>
+                        <a href="#UploadCategoryImageDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UploadCategoryImageDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/products/docs/upload-product-image.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UploadProductImageDocs"></a>
+                    <span class="name">
+                        <span ><b>UploadProductImageDocs</b></span>
+                        <a href="#UploadProductImageDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UploadProductImageDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/users/docs/upload-user-image.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UploadUserImageDocs"></a>
+                    <span class="name">
+                        <span ><b>UploadUserImageDocs</b></span>
+                        <a href="#UploadUserImageDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UploadUserImageDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/users/docs/users.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UsersDocs"></a>
+                    <span class="name">
+                        <span ><b>UsersDocs</b></span>
+                        <a href="#UsersDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>UsersDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/modules/auth/docs/verify-email.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VerifyEmailDocs"></a>
+                    <span class="name">
+                        <span ><b>VerifyEmailDocs</b></span>
+                        <a href="#VerifyEmailDocs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>VerifyEmailDocs()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>MethodDecorator</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-functions';
+            var COMPODOC_CURRENT_PAGE_URL = 'functions.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,313 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>serve-compass documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">serve-compass documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content readme">
+                   <div class="content-data">
+
+
+<h1>Serve Compass – Restaurant Management API</h1>
+<p>Serve Compass is a <strong>NestJS-based REST API</strong> for managing restaurant data such as <strong>products, categories, branches, users, and roles</strong>.<br>It is designed to be the backend for web and mobile front-ends, with a focus on clean architecture, strong typing, and robust tooling.</p>
+<hr>
+<h2>Features</h2>
+<ul>
+<li><strong>Authentication &amp; Authorization</strong><ul>
+<li>Email/password login and registration</li>
+<li>Google OAuth integration</li>
+<li>Role-based access control and role management</li>
+</ul>
+</li>
+<li><strong>Product &amp; Category Management</strong><ul>
+<li>CRUD operations for categories and products</li>
+<li>Image upload and deletion (via S3-compatible storage)</li>
+</ul>
+</li>
+<li><strong>User &amp; Role Management</strong><ul>
+<li>User CRUD</li>
+<li>Assigning and managing user roles</li>
+</ul>
+</li>
+<li><strong>Infrastructure &amp; Tooling</strong><ul>
+<li>PostgreSQL via TypeORM</li>
+<li>Redis + BullMQ for background jobs/queues</li>
+<li>Nodemailer-based email sending</li>
+<li>Winston logging with daily rotate files</li>
+<li>Compodoc-powered API documentation</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>Tech Stack</h2>
+<ul>
+<li><strong>Runtime</strong>: Node.js</li>
+<li><strong>Framework</strong>: NestJS</li>
+<li><strong>Language</strong>: TypeScript</li>
+<li><strong>Database</strong>: PostgreSQL (via TypeORM)</li>
+<li><strong>Caching / Queues</strong>: Redis, BullMQ</li>
+<li><strong>Auth</strong>: Passport (local + Google OAuth 2.0)</li>
+<li><strong>Mailing</strong>: Nodemailer</li>
+<li><strong>Storage</strong>: AWS S3 (via <code>@aws-sdk/client-s3</code>, <code>sharp</code> for image processing)</li>
+<li><strong>Testing</strong>: Jest, Supertest</li>
+<li><strong>Documentation</strong>: Compodoc</li>
+</ul>
+<hr>
+<h2>Getting Started</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js - docker image: 22-alpine3.21 (recommended)</li>
+<li>Yarn</li>
+<li>Docker &amp; Docker Compose (for local DB/Redis via <code>docker-compose.dev.yaml</code>)</li>
+</ul>
+<h3>Installation</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># using yarn (recommended)
+yarn</code></pre></div><hr>
+<h2>Running the App</h2>
+<h3>Development</h3>
+<p>Start PostgreSQL/Redis/etc. via Docker and run the Nest app in watch mode:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># start dev infra + backend (from package.json)
+yarn start:dev</code></pre></div><p>This uses <code>docker-compose.dev.yaml</code> to bring up services and then starts Nest in watch mode.</p>
+<h3>Production Build</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># build
+yarn build
+
+# run compiled app
+yarn start:prod</code></pre></div><hr>
+<h2>Scripts (package.json)</h2>
+<ul>
+<li><strong><code>start</code></strong> – Start NestJS in normal mode</li>
+<li><strong><code>start:dev</code></strong> – Start Docker dev services and NestJS in watch mode</li>
+<li><strong><code>start:debug</code></strong> – Start in debug mode with watch</li>
+<li><strong><code>start:prod</code></strong> – Run compiled <code>dist/main.js</code></li>
+<li><strong><code>build</code></strong> – Compile TypeScript to <code>dist</code></li>
+<li><strong><code>test</code></strong> – Run Jest test suite</li>
+<li><strong><code>test:watch</code></strong> – Jest in watch mode</li>
+<li><strong><code>test:cov</code></strong> – Jest with coverage</li>
+<li><strong><code>test:debug</code></strong> – Jest with Node inspector</li>
+<li><strong><code>test:e2e</code></strong> – Run e2e tests</li>
+<li><strong><code>lint</code></strong> – ESLint with auto-fix</li>
+<li><strong><code>format</code></strong> – Prettier formatting</li>
+<li><strong><code>docs:build</code></strong> – Generate Compodoc documentation</li>
+<li><strong><code>docs:post-clean</code></strong> – Remove Compodoc unneeded files</li>
+</ul>
+<p>Run any script with:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">yarn &lt;script-name&gt;</code></pre></div><hr>
+<h2>Documentation (Compodoc)</h2>
+<p>The project uses <strong>Compodoc</strong> for API and architecture documentation.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># generate documentation
+yarn docs:build</code></pre></div><p>Additional custom markdown documentation pages are configured via:</p>
+<ul>
+<li><code>src/docs/summary.json</code></li>
+<li>Markdown files such as <code>src/docs/introduction.md</code></li>
+</ul>
+<p>These appear in the Compodoc sidebar under the additional documentation section.</p>
+<hr>
+<h2>Project Structure (High Level)</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-text">src/
+  entities/             # TypeORM entities (User, Role, Product, Category, etc.)
+  lib/                  # Shared libraries, providers, utils, decorators
+  migrations/           # Database migrations
+  modules/
+    auth/               # Auth &amp; session management
+    users/              # User CRUD and related logic
+    roles/              # Roles and permissions
+    roles-management/   # Managing user roles
+    categories/         # Category CRUD and images
+    products/           # Product CRUD and images
+  types/                # Shared interfaces, enums, DTO types
+  docs/                 # Custom markdown docs wired into Compodoc
+main.ts                 # Application bootstrap
+main.module.ts          # Root NestJS module</code></pre></div><p><code>dist/</code> and <code>documentation/</code> are generated folders for compiled code and generated docs, respectively.</p>
+<hr>
+<h2>Testing</h2>
+<p>Run all tests:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">yarn test</code></pre></div><p>Run end-to-end tests:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">yarn test:e2e</code></pre></div><p>Run tests with coverage:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">yarn test:cov</code></pre></div><hr>
+<h2>License</h2>
+<p>This project is currently <strong>UNLICENSED</strong> (see <code>package.json</code>).<br>Check with the repository owner before using it in production or distributing derivatives.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'readme';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

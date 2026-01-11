@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "yarn docs:build && nest build",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "docker-compose -f docker-compose.dev.yaml up --build -d & yarn docs:build && nest start --watch",
@@ -117,9 +117,13 @@
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{ts}": [
       "eslint --fix",
       "prettier --write",
+      "git add"
+    ],
+    "*.{md,ts}": [
+      "yarn docs:build",
       "git add"
     ]
   }
