@@ -5,6 +5,7 @@ import { MailerOptionsProvider } from '@lib/providers/mailer-options';
 import { RedisOptionsProvider } from '@lib/providers/redis-options';
 import { AuthModule } from '@modules/auth/auth.module';
 import { CategoriesModule } from '@modules/categories/categories.module';
+import { HealthModule } from '@modules/health/health.module';
 import { ProductsModule } from '@modules/products/products.module';
 import { RolesModule } from '@modules/roles/roles.module';
 import { RolesManagementModule } from '@modules/roles-management/roles-management.module';
@@ -24,6 +25,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     CacheModule.registerAsync(RedisOptionsProvider),
     MailerModule.forRootAsync(MailerOptionsProvider),
     BullModule.forRootAsync(BullOptionsProvider),
+    HealthModule,
     AuthModule,
     UsersModule,
     RolesModule,
