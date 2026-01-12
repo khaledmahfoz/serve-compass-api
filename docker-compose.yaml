@@ -10,39 +10,9 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - dokploy-network
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      PORT: ${PORT}
-      CLIENT_BASE_URL: ${CLIENT_BASE_URL}
-      SWAGGER_ENABLED: ${SWAGGER_ENABLED}
-      DATABASE_TYPE: ${DATABASE_TYPE}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USER_NAME: ${DATABASE_USER_NAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      GOOGLE_REDIRECT_URL: ${GOOGLE_REDIRECT_URL}
-      REDIS_USERNAME: ${REDIS_USERNAME}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      SESSION_SECRET: ${SESSION_SECRET}
-      SESSION_TTL: ${SESSION_TTL}
-      REDIS_TTL: ${REDIS_TTL}
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_PORT: ${MAIL_PORT}
-      MAIL_USER: ${MAIL_USER}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      MAIL_FROM: ${MAIL_FROM}
-      B2_ENDPOINT: ${B2_ENDPOINT}
-      B2_REGION: ${B2_REGION}
-      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
-      B2_FOLDER_NAME: ${B2_FOLDER_NAME}
-      B2_ACCESS_KEY_ID: ${B2_ACCESS_KEY_ID}
-      B2_SECRET_ACCESS_KEY: ${B2_SECRET_ACCESS_KEY}
+      - non-prod-serve-compass
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
@@ -52,7 +22,7 @@ services:
     image: postgres:15-alpine
     restart: unless-stopped
     networks:
-      - dokploy-network
+      - non-prod-serve-compass
     environment:
       POSTGRES_USER: ${DATABASE_USER_NAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -70,7 +40,7 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     networks:
-      - dokploy-network
+      - non-prod-serve-compass
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     command: redis-server --requirepass ${REDIS_PASSWORD}
@@ -85,5 +55,5 @@ volumes:
   postgres_data:
   redis_data:
 networks:
-  dokploy-network:
+  non-prod-serve-compass:
     external: true
