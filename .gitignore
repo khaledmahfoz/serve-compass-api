@@ -55,5 +55,14 @@ pids
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-dbml.dbml
-mermaid.mmd
+# Documentation
+schemas.dbml
+
+# SpecKit - only ignore temporary state
+.specify/state/
+.specify/temp/
+
+# OpenCode - ignore only cache and local state
+.opencode/cache/
+.opencode/state/
+.opencode/logs/

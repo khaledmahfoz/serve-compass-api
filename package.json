@@ -134,7 +134,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.{md}": [
+    "src/docs/**/*.md": [
       "yarn docs:build",
       "git add"
     ]
