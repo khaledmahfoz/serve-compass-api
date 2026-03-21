@@ -1,4 +1,4 @@
-import { dataSource } from '@lib/database/data-source';
+import dataSource from '@lib/database/data-source';
 import { ObjectType } from 'typeorm';
 
 export const excludeColumns = <Entity>(
